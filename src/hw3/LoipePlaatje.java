@@ -1,7 +1,5 @@
 package hw3;
 
-import hw3.Loipe.Fragment;
-
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +15,12 @@ import javax.swing.JFrame;
  */
 public class LoipePlaatje extends Canvas implements TekenLoipe
 {
-   /** Used for painting the tiles.
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7186771824983579662L;
+
+/** Used for painting the tiles.
     *  We assume that all tiles have same width and height.
     */
    private final int UNIT;
