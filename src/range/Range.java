@@ -2,6 +2,12 @@ package range;
 
 import java.util.Iterator;
 
+/**
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ * Range implements a simple way of looping over a range of integers.
+ * It begins at start and then increments with step every time until it reaches end, not including end.
+ */
 public class Range implements Iterable<Integer> {
 	private class RangeIterator implements Iterator<Integer> {
 		private int current;
@@ -37,7 +43,7 @@ public class Range implements Iterable<Integer> {
 	private int start;
 	private int end;
 	private int step;
-	
+
 	public Range(int end) {
 		this(0, end, 1);
 	}
