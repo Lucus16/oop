@@ -8,10 +8,40 @@ public class Loipe implements InfoLoipe{
 		
 		private final int dx;
 		private final int dy;
+		private Direction left, right;
+		
+		static {
+			N.left = W;
+			E.left = N;
+			S.left = E;
+			W.left = S;
+			N.right = E;
+			E.right = S;
+			S.right = W;
+			W.right = N;
+		}
 		
 		Direction(int dx,int dy){
 			this.dx=dx;
 			this.dy=dy;
+		}
+		
+		private Direction turnByChar(char c){
+			switch(c){
+			case 'l': return left;
+			case 'r': return right; 
+			case 's': return this;
+			default: throw new IllegalArgumentException(
+				"Unknown direction symbol \'" + c + "\' encountered.");
+			}
+		}
+		
+		public Direction turnLeft(){
+			return left;
+		}
+		
+		public Direction turnRight(){
+			return right;
 		}
 	}
 	private Integer sizeX;
@@ -29,7 +59,14 @@ public class Loipe implements InfoLoipe{
 	
 	
 	private void generateGrid() {
-		
+		int x = origin.left;
+		int y = origin.right;
+		grid = new Fragment[sizeX][sizeY];
+		for(Tuple<Direction, Fragment> tile : track){
+			grid[x][y]=Fragment.add(grid[x][y], tile.right);
+			x += tile.left.dx;
+			y += tile.left.dy;
+		}
 	}
 
 
@@ -40,8 +77,11 @@ public class Loipe implements InfoLoipe{
 
 
 	private ArrayList<Tuple<Direction, Fragment>> toTrack(String pad) {
-		// TODO Auto-generated method stub
+		Direction heading = Direction.N;
+		int x,y,maxX,maxY,minX,minY;
+		x=y=maxX=maxY=minX=minY=0;
 		return null;
+		//TODO: continue.
 	}
 
 
