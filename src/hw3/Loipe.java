@@ -66,11 +66,7 @@ public class Loipe implements InfoLoipe{
 		int x = origin.left;
 		int y = origin.right;
 		grid = new Fragment[sizeX][sizeY];
-		System.out.println("Loipe heeft breedte " + sizeX.toString());
-		System.out.println("Loipe heeft hoogte " + sizeY.toString());
 		for(Tuple<Direction, Fragment> tile : track){
-			System.out.println("Volgende tegel op " + Integer.toString(x) +
-						"," + Integer.toString(y));
 			grid[x][y]=Fragment.add(grid[x][y], tile.right);
 			x += tile.left.dx;
 			y += tile.left.dy;
