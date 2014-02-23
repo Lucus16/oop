@@ -6,20 +6,31 @@ package hw3;
 import range.Range;
 
 /**
- * @author Sal
- *
+ * Class for turning a given InfoLoipe into ASCII art, printing to stdout.
+ * @author Sal Wolffs(s4064542)
+ * @author Lars Jellema(s4388747)
  */
 public class ASCIILoipe implements TekenLoipe {
 	InfoLoipe loipe;
 	
+	/**
+	 * Empty constructor. Requires a call to setLoipe(Loipe loipe) afterward
+	 * before any other calls are made to avoid null pointer exceptions.
+	 */
 	ASCIILoipe(){
-		
 	}
 	
+	/**
+	 * Effectively performs setLoipe during construction.
+	 * @param loipe
+	 */
 	ASCIILoipe(InfoLoipe loipe){
 		this.loipe=loipe;
 	}
 	
+	/**
+	 * Binds this class to the given InfoLoipe.
+	 */
 	public void setLoipe(InfoLoipe loipe){
 		this.loipe=loipe;
 	}
@@ -30,6 +41,18 @@ public class ASCIILoipe implements TekenLoipe {
 		for(int y : new Range(0,loipe.getY())){
 			for(int x : new Range(0,loipe.getX())){
 				System.out.print(toASCII(loipe.getFragment(x, y)));
+			}
+			System.out.println();
+		}
+	}
+	
+	/**
+	 * Alternative drawing method, produces a less narrow ASCII art pattern.
+	 */
+	public void tekenWide() {
+		for(int y : new Range(0,loipe.getY())){
+			for(int x : new Range(0,loipe.getX())){
+				System.out.print(wideASCII(loipe.getFragment(x, y)));
 			}
 			System.out.println();
 		}

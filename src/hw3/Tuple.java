@@ -5,7 +5,8 @@ package hw3;
  * Intended as a near-primitive and as such not encapsulated.
  * Has two public member fields, left and right, 
  * not necessarily of the same type.
- * @author Sal
+ * @author Sal Wolffs(s4064542)
+ * @author Lars Jellema(s4388747)
  *
  */
 public class Tuple <L,R> {
