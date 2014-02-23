@@ -8,7 +8,7 @@ public class Loipe implements InfoLoipe{
 		
 		private final int dx;
 		private final int dy;
-		private Direction left, right;
+		private Direction left, right,rev;
 		
 		static {
 			N.left = W;
@@ -19,6 +19,10 @@ public class Loipe implements InfoLoipe{
 			E.right = S;
 			S.right = W;
 			W.right = N;
+			N.rev = S;
+			E.rev = W;
+			S.rev = N;
+			W.rev = E;
 		}
 		
 		Direction(int dx,int dy){
@@ -62,7 +66,11 @@ public class Loipe implements InfoLoipe{
 		int x = origin.left;
 		int y = origin.right;
 		grid = new Fragment[sizeX][sizeY];
+		System.out.println("Loipe heeft breedte " + sizeX.toString());
+		System.out.println("Loipe heeft hoogte " + sizeY.toString());
 		for(Tuple<Direction, Fragment> tile : track){
+			System.out.println("Volgende tegel op " + Integer.toString(x) +
+						"," + Integer.toString(y));
 			grid[x][y]=Fragment.add(grid[x][y], tile.right);
 			x += tile.left.dx;
 			y += tile.left.dy;
@@ -71,17 +79,34 @@ public class Loipe implements InfoLoipe{
 
 
 	private void normalizeCoords() {
-		// TODO Auto-generated method stub
-		
+		int x,y,maxX,maxY,minX,minY;
+		x=y=maxX=maxY=minX=minY=0;
+		for(Tuple<Direction, Fragment> tile : track){
+			maxX = Math.max(x,maxX);
+			maxY = Math.max(y,maxY);
+			minX = Math.min(x,minX);
+			minY = Math.min(y,minY);
+			x += tile.left.dx;
+			y += tile.left.dy;
+		}
+		origin = new Tuple<Integer,Integer>(-minX,-minY);
+		sizeX = maxX - minX + 1;
+		sizeY = maxY - minY + 1;
 	}
 
 
 	private ArrayList<Tuple<Direction, Fragment>> toTrack(String pad) {
 		Direction heading = Direction.N;
-		int x,y,maxX,maxY,minX,minY;
-		x=y=maxX=maxY=minX=minY=0;
-		return null;
-		//TODO: continue.
+		Direction newHeading;
+		ArrayList<Tuple<Direction,Fragment>> accu = 
+				new ArrayList<Tuple<Direction,Fragment>>();
+		for (char c : pad.toCharArray()){
+			newHeading = heading.turnByChar(c);
+			accu.add(new Tuple<Direction,Fragment>(
+					newHeading,Fragment.byDirections(heading.rev, newHeading)));
+			heading=newHeading;
+		}
+		return accu;
 	}
 
 
