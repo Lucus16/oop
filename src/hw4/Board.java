@@ -1,6 +1,8 @@
 package hw4;
 
-public class Board {
+import range.Range;
+
+public class Board implements BoardInfo, Cloneable {
 	public static final int WIDTH = 7, HEIGHT = 6;
 	private Color[][] slots;
 	private boolean hasEnded;
@@ -13,13 +15,15 @@ public class Board {
 	/**
 	 * Make a copy of another board.
 	 */
-	public Board(Board old) {
+	public Board(BoardInfo other) {
 		slots = new Color[WIDTH][HEIGHT];
-		for (int col = 0; col < WIDTH; col++) {
-			for (int row = 0; row < HEIGHT; row++) {
-				slots[col][row] = old.slots[col][row];
+		for (int col : new Range(WIDTH)) {
+			for (int row : new Range(HEIGHT)) {
+				slots[col][row] = other.getSlot(col, row);
 			}
 		}
+		hasEnded = other.hasEnded();
+		winner = other.winner();
 	}
 	
 	public Color getSlot(int col, int row) {
@@ -36,7 +40,13 @@ public class Board {
 		return slots[col][HEIGHT - 1] == null;
 	}
 	
+	public boolean validSlot(int col, int row) {
+		return col >= 0 && col < WIDTH && row >= 0 && row < HEIGHT;
+	}
+	
 	/**
+	 * If an invalid move is sent, for example in a column that is full,
+	 * the moving player loses. The validity of a move can be checked with validMove() beforehand.
 	 * @return whether the move could be made. 
 	 */
 	public boolean move(Color color, int col) {
@@ -48,61 +58,61 @@ public class Board {
 		for (int row = 0; row < HEIGHT; row++) {
 			if (slots[col][row] == null) {
 				slots[col][row] = color;
-				checkEnd();
+				checkEnd(col, row);
 				return true;
 			}
 		}
+		
 		return false;
 	}
 	
-	private void checkEnd() {
-		Color c = checkFour(0, 1);
-		if (c == null) {
-			c = checkFour(1, 1);
-		}
-		if (c == null) {
-			c = checkFour(1, 0);
-		}
-		if (c == null) {
-			c = checkFour(1, -1);
-		}
-		if (c != null) {
-			hasEnded = true;
-			winner = c;
-			return;
-		}
+	public boolean full() {
 		boolean full = true;
 		for (int col = 0; col < WIDTH; col++) {
 			if (slots[col][HEIGHT - 1] == null) {
 				full = false;
 			}
 		}
-		if (full) {
+		return full;
+	}
+	
+	public void checkEnd(int x, int y) {
+		if (checkFour(x, y)) {
+			hasEnded = true;
+			winner = slots[x][y];
+			return;
+		}
+		if (full()) {
 			hasEnded = true;
 			winner = null;
 		}
 	}
 	
-	private Color checkFour(int dx, int dy) {
-		for (int x = Math.max(0, -3 * dx); x < Math.min(WIDTH, WIDTH - 3 * dx); x++) {
-			for (int y = Math.max(0, -3 * dy); y < Math.min(HEIGHT, HEIGHT - 3 * dy); y++) {
-				Color c = checkFour(x, y, dx, dy);
-				if (c != null) {
-					return c;
+	public boolean checkFour(int x, int y) {
+		return  checkFour(x, y, 0, 1) ||
+				checkFour(x, y, 1, 1) || 
+				checkFour(x, y, 1, 0) ||
+				checkFour(x, y, 1, -1);
+	}
+	
+	public boolean checkFour(int x, int y, int dx, int dy) {
+		int count = 0;
+		Color c = slots[x][y]; 
+		for (int i : new Range(-3, 4)) {
+			int curx = x + dx * i;
+			int cury = y + dy * i;
+			if (validSlot(curx, cury)) {
+				if (slots[x][y] == c) {
+					count++;
+					if (count >= 4) {
+						return true;
+					}
+				} else {
+					count = 0;
 				}
 			}
 		}
-		return null;
-	}
-	
-	private Color checkFour(int x, int y, int dx, int dy) {
-		Color c = slots[x][y];
-		for (int i = 1; i < 4; i++) {
-			if (slots[x + i * dx][y + i * dy] != c) {
-				return null;
-			}
-		}
-		return c;
+		return false;
 	}
 	
 	public boolean hasEnded() {
@@ -119,8 +129,8 @@ public class Board {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (int row = 0; row < HEIGHT; row++) {
-			for (int col = 0; col < WIDTH; col++) {
+		for (int row : new Range(HEIGHT)) {
+			for (int col : new Range(WIDTH)) {
 				sb.append(" [" + slots[col][row] + "]");
 			}
 			sb.append('\n');
