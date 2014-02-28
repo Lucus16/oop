@@ -7,6 +7,7 @@ public class Board implements BoardInfo, Cloneable {
 	private Color[][] slots;
 	private boolean hasEnded;
 	private Color winner;
+	private int lastMove;
 	
 	public Board() {
 		slots = new Color[WIDTH][HEIGHT];
@@ -25,7 +26,8 @@ public class Board implements BoardInfo, Cloneable {
 		hasEnded = other.hasEnded();
 		winner = other.winner();
 	}
-	
+
+	@Override
 	public Color getSlot(int col, int row) {
 		assert col >= 0;
 		assert col < WIDTH;
@@ -33,13 +35,15 @@ public class Board implements BoardInfo, Cloneable {
 		assert row < HEIGHT;
 		return slots[col][row];
 	}
-	
+
+	@Override
 	public boolean validMove(int col) {
 		assert col >= 0;
 		assert col < WIDTH;
 		return slots[col][HEIGHT - 1] == null;
 	}
-	
+
+	@Override
 	public boolean validSlot(int col, int row) {
 		return col >= 0 && col < WIDTH && row >= 0 && row < HEIGHT;
 	}
@@ -59,6 +63,7 @@ public class Board implements BoardInfo, Cloneable {
 			if (slots[col][row] == null) {
 				slots[col][row] = color;
 				checkEnd(col, row);
+				lastMove = col;
 				return true;
 			}
 		}
@@ -115,6 +120,7 @@ public class Board implements BoardInfo, Cloneable {
 		return false;
 	}
 	
+	@Override
 	public boolean hasEnded() {
 		return hasEnded;
 	}
@@ -123,10 +129,12 @@ public class Board implements BoardInfo, Cloneable {
 	 * Check who the winner is.
 	 * @return color of the winner or null in case of draw or when polled before the end of the game.
 	 */
+	@Override
 	public Color winner() {
 		return winner;
 	}
-	
+
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (int row : new Range(HEIGHT)) {
@@ -136,5 +144,10 @@ public class Board implements BoardInfo, Cloneable {
 			sb.append('\n');
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public int lastMove() {
+		return lastMove;
 	}
 }

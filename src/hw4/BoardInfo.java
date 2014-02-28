@@ -7,4 +7,5 @@ public interface BoardInfo {
 	public boolean validMove(int col);
 	public boolean validSlot(int col, int row);
 	public String toString();
+	public int lastMove();
 }
