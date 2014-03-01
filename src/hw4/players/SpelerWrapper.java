@@ -23,7 +23,8 @@ public class SpelerWrapper implements Player {
 
 	@Override
 	public int getMove() {
-		return speler.Speel(new Bord(board));
+		int move = speler.Speel(new Bord(board));
+		return move;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package hw4;
 
+import hw4.dutch.Bot;
+import hw4.dutch.Kleur;
 import hw4.players.*;
 import io.Input;
 
@@ -38,7 +40,7 @@ public class Main {
 	}
 	
 	private void makeGame() {
-		Game game = new Game(getPlayer(1), getPlayer(2));
+		Game game = new Game(getPlayer(Color.YELLOW), getPlayer(Color.RED));
 		game.play();
 	}
 	
@@ -49,16 +51,19 @@ public class Main {
 		System.out.println("");
 	}
 	
-	private Player getPlayer(int n) {
-		System.out.println("Please choose player " + n);
+	private Player getPlayer(Color c) {
+		System.out.println("Please choose player " + c);
 		System.out.println("1. Human");
 		System.out.println("2. Computer");
-		int choice = Input.getChoice(2);
+		System.out.println("3. Dutch Bot");
+		int choice = Input.getChoice(3);
 		switch (choice) {
 		case 1:
 			return new Human();
 		case 2:
 			return new SimpleAI();
+		case 3:
+			return new SpelerWrapper(new Bot("DutchBot" + c, Kleur.fromColor(c)));
 		default:
 			return null;
 		}

@@ -11,6 +11,11 @@ public class Board implements BoardInfo, Cloneable {
 	
 	public Board() {
 		slots = new Color[WIDTH][HEIGHT];
+		for (int col : new Range(WIDTH)) {
+			for (int row : new Range(HEIGHT)) {
+				slots[col][row] = Color.NONE;
+			}
+		}
 	}
 	
 	/**
@@ -38,9 +43,10 @@ public class Board implements BoardInfo, Cloneable {
 
 	@Override
 	public boolean validMove(int col) {
-		assert col >= 0;
-		assert col < WIDTH;
-		return slots[col][HEIGHT - 1] == null;
+		if (col < 0 || col >= WIDTH) {
+			return false;
+		}
+		return slots[col][HEIGHT - 1] == Color.NONE;
 	}
 
 	@Override
@@ -60,21 +66,22 @@ public class Board implements BoardInfo, Cloneable {
 			return false;
 		}
 		for (int row = 0; row < HEIGHT; row++) {
-			if (slots[col][row] == null) {
+			if (slots[col][row] == Color.NONE) {
 				slots[col][row] = color;
 				checkEnd(col, row);
 				lastMove = col;
 				return true;
 			}
 		}
-		
+		hasEnded = true;
+		winner = color.other();
 		return false;
 	}
 	
 	public boolean full() {
 		boolean full = true;
 		for (int col = 0; col < WIDTH; col++) {
-			if (slots[col][HEIGHT - 1] == null) {
+			if (slots[col][HEIGHT - 1] == Color.NONE) {
 				full = false;
 			}
 		}
@@ -89,7 +96,7 @@ public class Board implements BoardInfo, Cloneable {
 		}
 		if (full()) {
 			hasEnded = true;
-			winner = null;
+			winner = Color.NONE;
 		}
 	}
 	
@@ -107,7 +114,7 @@ public class Board implements BoardInfo, Cloneable {
 			int curx = x + dx * i;
 			int cury = y + dy * i;
 			if (validSlot(curx, cury)) {
-				if (slots[x][y] == c) {
+				if (slots[curx][cury] == c) {
 					count++;
 					if (count >= 4) {
 						return true;
@@ -137,11 +144,11 @@ public class Board implements BoardInfo, Cloneable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (int row : new Range(HEIGHT)) {
-			for (int col : new Range(WIDTH)) {
-				sb.append(" [" + slots[col][row] + "]");
-			}
+		for (int row : new Range(HEIGHT - 1, -1, -1)) {
 			sb.append('\n');
+			for (int col : new Range(WIDTH)) {
+				sb.append(" [" + slots[col][row].toChar() + "]");
+			}
 		}
 		return sb.toString();
 	}
