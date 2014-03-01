@@ -7,8 +7,8 @@ public class Game {
 	
 	public Game(Player yellow, Player red) {
 		board = new Board();
-		yellow.initGame(board, Color.YELLOW);
-		red.initGame(board, Color.RED);
+		yellow.initGame(board);
+		red.initGame(board);
 		this.yellow = yellow;
 		this.red = red;
 	}

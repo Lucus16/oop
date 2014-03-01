@@ -59,11 +59,11 @@ public class Main {
 		int choice = Input.getChoice(3);
 		switch (choice) {
 		case 1:
-			return new Human();
+			return new Human(c + " Human", c);
 		case 2:
-			return new SimpleAI();
+			return new SimpleAI(c + " SimpleAI", c);
 		case 3:
-			return new SpelerWrapper(new Bot("DutchBot" + c, Kleur.fromColor(c)));
+			return new SpelerWrapper(new Bot(c + " DutchBot", Kleur.fromColor(c)));
 		default:
 			return null;
 		}

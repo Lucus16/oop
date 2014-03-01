@@ -15,6 +15,14 @@ import hw4.Color;
 public enum Kleur {
     Rood(), Geel(), Leeg();
     
+    private Color color;
+    
+    static {
+    	Geel.color = Color.YELLOW;
+    	Rood.color = Color.RED;
+    	Leeg.color = Color.NONE;
+    }
+    
     public Kleur ander(){
         if(this == Geel)
             return Rood;
@@ -31,6 +39,10 @@ public enum Kleur {
     	default:
     		return null;
     	}
+    }
+    
+    public Color toColor() {
+    	return color;
     }
     
     public String toString(){

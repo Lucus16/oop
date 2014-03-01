@@ -1,23 +1,12 @@
 package hw4.players;
 
 import io.Input;
-import hw4.BoardInfo;
 import hw4.Color;
 import hw4.Player;
 
-public class Human implements Player {
-	private BoardInfo board;
-	private Color color;
-	private String name;
-	
+public class Human extends Player {
 	public Human(String name, Color color) {
-		this.name = name;
-		this.color = color;
-	}
-
-	@Override
-	public void initGame(BoardInfo board) {
-		this.board = board;
+		super(name, color);
 	}
 
 	@Override
@@ -45,15 +34,4 @@ public class Human implements Player {
 			}
 		}
 	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public Color getColor() {
-		return color;
-	}
-
 }

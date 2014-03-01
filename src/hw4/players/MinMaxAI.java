@@ -11,28 +11,15 @@ import java.util.TreeMap;
 
 import tuple.Tuple;
 
-public class MinMaxAI implements Player {
+public class MinMaxAI extends Player {
+	public MinMaxAI(String name, Color color) {
+		super(name, color);
+	}
+
 	private Comparator<BoardInfo> valuator;
-	
-	public MinMaxAI(){
-		
-	}
-	
-	@Override
-	public void initGame(BoardInfo board, Color color) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public int getMove() {
 		return 0;
 	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

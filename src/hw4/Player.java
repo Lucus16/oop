@@ -1,31 +1,47 @@
 package hw4;
 
-public interface Player {
+public abstract class Player {
+	protected BoardInfo board;
+	protected Color color;
+	private String name;
+	
+	public Player(String name, Color color) {
+		this.name = name;
+		this.color = color;
+	}
+	
 	/**
 	 * Give the player a read only reference to the board he can use to inspect it while playing,
 	 * as well as the color he will be playing. The player should store both of these.
 	 * @param board
 	 */
-	public void initGame(BoardInfo board);
+	public void initGame(BoardInfo board) {
+		this.board = board;
+	}
 	
 	/**
 	 * Get a move from the player.
 	 * @return the column where the player wants to make a move.
 	 */
-	public int getMove();
+	public abstract int getMove();
 	
 	/**
-	 * Notify the player that the board has been updated.
+	 * Notify the player that the board has been updated. Does nothing by default.
 	 */
-	public void update();
+	public void update() {
+	}
 	
 	/**
 	 * @return the name of the player
 	 */
-	public String getName();
+	public String getName() {
+		return name;
+	}
 	
 	/**
 	 * @return the color of the player
 	 */
-	public Color getColor();
+	public Color getColor() {
+		return color;
+	}
 }
