@@ -12,7 +12,7 @@ public class Human extends Player {
 	@Override
 	public int getMove() {
 		System.out.println(board);
-		System.out.println(color + "'s turn.");
+		System.out.println(name + "'s turn.");
 		System.out.println("Please enter the column you wish to play in.");
 		int col = -1;
 		while (true) {

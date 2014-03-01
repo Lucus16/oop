@@ -3,7 +3,7 @@ package hw4;
 public abstract class Player {
 	protected BoardInfo board;
 	protected Color color;
-	private String name;
+	protected String name;
 	
 	public Player(String name, Color color) {
 		this.name = name;

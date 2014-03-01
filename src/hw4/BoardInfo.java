@@ -8,4 +8,6 @@ public interface BoardInfo {
 	public boolean validSlot(int col, int row);
 	public String toString();
 	public int lastMove();
+	public int getWidth();
+	public int getHeight();
 }

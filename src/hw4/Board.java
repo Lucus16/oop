@@ -157,4 +157,14 @@ public class Board implements BoardInfo, Cloneable {
 	public int lastMove() {
 		return lastMove;
 	}
+
+	@Override
+	public int getWidth() {
+		return WIDTH;
+	}
+
+	@Override
+	public int getHeight() {
+		return HEIGHT;
+	}
 }
