@@ -5,7 +5,7 @@ import java.util.Random;
 
 /**
  * Keeps track of which moves are still open and which moves should definitely not be played.
- * 0 means blacklisted, 1 or higher means available
+ * 0 means blacklisted, 1 or higher means available with higher numbers indicating better moves.
  * @author Lars Jellema s4388747
  * @author Sal Wolffs s4064542
  */
