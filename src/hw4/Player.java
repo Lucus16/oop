@@ -22,9 +22,9 @@ public abstract class Player {
 	}
 	
 	/**
-	 * Give the player a read only reference to the board he can use to inspect 
-	 * it while playing, as well as the color he will be playing. The player 
-	 * should store both of these.
+	 * Give the player its reference to the board via the BoardInfo interface.
+	 * The player can use this to inspect the state of the board but cannot
+	 * change it. The reference is only given once, at the start of the game.
 	 * @param board
 	 */
 	public void initGame(BoardInfo board) {
