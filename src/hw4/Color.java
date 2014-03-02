@@ -17,14 +17,25 @@ public enum Color {
 		RED.string = "Red";
 	}
 	
+	/**
+	 * String representation of the color, "Red" or "Yellow"
+	 */
 	public String toString() {
 		return string;
 	}
 	
+	/**
+	 * Character representation of the color, 'X' or 'O'
+	 * @return
+	 */
 	public char toChar() {
 		return ch;
 	}
 	
+	/**
+	 * Return the other of the color that was passed.
+	 * @return
+	 */
 	public Color other() {
 		return other;
 	}

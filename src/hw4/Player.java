@@ -5,6 +5,11 @@ public abstract class Player {
 	protected Color color;
 	protected String name;
 	
+	/**
+	 * Default constructor for a player, storing the name and color
+	 * @param name
+	 * @param color
+	 */
 	public Player(String name, Color color) {
 		this.name = name;
 		this.color = color;

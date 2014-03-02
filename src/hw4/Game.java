@@ -5,6 +5,11 @@ public class Game {
 	private Board board;
 	private Player yellow, red;
 	
+	/**
+	 * Create a new game with two players.
+	 * @param yellow
+	 * @param red
+	 */
 	public Game(Player yellow, Player red) {
 		board = new Board();
 		yellow.initGame(board);
@@ -13,6 +18,11 @@ public class Game {
 		this.red = red;
 	}
 	
+	/**
+	 * Play the game. This routine polls the players for moves in turns until the game has ended.
+	 * It also handles displaying the board, the turns and the winner.
+	 * @return the color of the winner of the game
+	 */
 	public Color play() {
 		Color turn = FIRST;
 		while (!board.hasEnded()) {
@@ -33,6 +43,11 @@ public class Game {
 		return board.winner();
 	}
 	
+	/**
+	 * Get the player object based on the color of that player.
+	 * @param color
+	 * @return the player with that color.
+	 */
 	private Player getPlayerByColor(Color color) {
 		return (color == Color.YELLOW ? yellow : red);
 	}

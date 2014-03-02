@@ -4,17 +4,23 @@ import utils.Input;
 import hw4.players.*;
 
 /**
- * 
+ * Main class.
  * @author Lars Jellema s4388747
  * @author Sal Wolffs s4064542
  */
 public class Main {
-	
+	/**
+	 * Initialize main program.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.mainLoop();
 	}
 
+	/**
+	 * Main menu loop. Repeatedly asks the user for a choice between playing a game, reading the help and quitting the program.
+	 */
 	public void mainLoop() {
 		boolean done = false;
 		while (!done) {
@@ -37,11 +43,17 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Create a new game, play it and return to the main menu.
+	 */
 	private void makeGame() {
 		Game game = new Game(getPlayer(Color.YELLOW), getPlayer(Color.RED));
 		game.play();
 	}
 	
+	/**
+	 * Print the help and return to the main menu.
+	 */
 	private void showHelp() {
 		System.out.println("This is a game of connect four. It is played by dropping pieces");
 		System.out.println("into columns on the board. The first player to create a row of");
@@ -49,6 +61,11 @@ public class Main {
 		System.out.println("");
 	}
 	
+	/**
+	 * Ask the user to choose the type of player for playing a given color.
+	 * @param c the color the player should be
+	 * @return a new instance of the selected type of player
+	 */
 	private Player getPlayer(Color c) {
 		System.out.println("Please choose player " + c);
 		System.out.println("1. Human");

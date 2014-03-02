@@ -59,23 +59,6 @@ public class BetterAI extends Player {
 		}
 		if (!templist.isEmpty()) { master.apply(templist); }
 		if (master.count() == 1) { return master.first(); }
-		//If the opponent can make a move which gives him two winning moves, filter all moves that don't prevent this.
-//		for (int col : new Range(board.getWidth())) {
-//			Board temp = new Board(board); 
-//			temp.move(color.other(), col);
-//			Blacklist templist2 = new Blacklist(board.getWidth());
-//			for (int col2 : new Range(board.getWidth())) {
-//				Board temp2 = new Board(temp);
-//				temp2.move(color, col2);
-//				templist2.setElem(col2, temp2.hasEnded() && temp2.winner() == color.other());
-//			}
-//			if (templist2.count() > 1) {
-//				
-//			}
-//			templist2.setElem(col, 2);
-//			
-//			templist.setElem(col, countWinOptions(board, color.other()) > 1);
-//		}
 		//Filter all moves that don't prevent the opponent from making a trap.
 		for (int col : new Range(board.getWidth())) {
 			Board temp = new Board(board);
