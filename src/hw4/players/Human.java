@@ -1,6 +1,6 @@
 package hw4.players;
 
-import io.Input;
+import utils.Input;
 import hw4.Color;
 import hw4.Player;
 
@@ -27,6 +27,7 @@ public class Human extends Player {
 	@Override
 	public void update() {
 		if (board.hasEnded()) {
+			System.out.println(board);
 			if (board.winner() == Color.NONE) {
 				System.out.println("The game has ended in a draw.");
 			} else {

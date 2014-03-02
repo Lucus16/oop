@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import tuple.Tuple;
+import utils.Tuple;
 
 public class MinMaxAI extends Player {
 	public MinMaxAI(String name, Color color) {

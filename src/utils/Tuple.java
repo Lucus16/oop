@@ -1,4 +1,4 @@
-package tuple;
+package utils;
 
 /**
  * Provides a general implementation of a classic 2-member tuple.

@@ -1,9 +1,7 @@
 package hw4;
 
-import hw4.dutch.Bot;
-import hw4.dutch.Kleur;
+import utils.Input;
 import hw4.players.*;
-import io.Input;
 
 /**
  * 
@@ -54,8 +52,8 @@ public class Main {
 	private Player getPlayer(Color c) {
 		System.out.println("Please choose player " + c);
 		System.out.println("1. Human");
-		System.out.println("2. Computer");
-		System.out.println("3. Dutch Bot");
+		System.out.println("2. SimpleAI");
+		System.out.println("3. BetterAI");
 		int choice = Input.getChoice(3);
 		switch (choice) {
 		case 1:
@@ -63,7 +61,7 @@ public class Main {
 		case 2:
 			return new SimpleAI(c + " SimpleAI", c);
 		case 3:
-			return new SpelerWrapper(new Bot(c + " DutchBot", Kleur.fromColor(c)));
+			return new BetterAI(c + " BetterAI", c);
 		default:
 			return null;
 		}

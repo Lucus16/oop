@@ -3,7 +3,7 @@
  */
 package hw3;
 
-import range.Range;
+import utils.Range;
 
 /**
  * Class for turning a given InfoLoipe into ASCII art, printing to stdout.

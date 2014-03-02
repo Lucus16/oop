@@ -14,7 +14,7 @@ public class SpelerWrapper extends Player {
 
 	@Override
 	public int getMove() {
-		int move = speler.Speel(new Bord(board));
+		int move = speler.Speel(new Bord(board)) - 1;
 		return move;
 	}
 }

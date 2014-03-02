@@ -1,6 +1,6 @@
 package hw4;
 
-import range.Range;
+import utils.Range;
 
 public class Board implements BoardInfo, Cloneable {
 	public static final int WIDTH = 7, HEIGHT = 6;
@@ -147,9 +147,10 @@ public class Board implements BoardInfo, Cloneable {
 		for (int row : new Range(HEIGHT - 1, -1, -1)) {
 			sb.append('\n');
 			for (int col : new Range(WIDTH)) {
-				sb.append(" [" + slots[col][row].toChar() + "]");
+				sb.append("[" + slots[col][row].toChar() + "]");
 			}
 		}
+		sb.append("\n 1  2  3  4  5  6  7");
 		return sb.toString();
 	}
 

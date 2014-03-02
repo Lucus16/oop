@@ -2,7 +2,7 @@ package hw4.players;
 
 import java.util.Random;
 
-import range.Range;
+import utils.Range;
 import hw4.Board;
 import hw4.BoardInfo;
 import hw4.Color;
