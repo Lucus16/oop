@@ -6,7 +6,13 @@ import hw4.BoardInfo;
 import hw4.Color;
 import hw4.Player;
 import hw4.botutils.Blacklist;
-
+/**
+ * Better AI can handle most traps. If it sees its opponent creating such a trap, it will counter it
+ * and if it happens to be able to create a trap in a single move, it will do so. Otherwise
+ * it will play randomly and favor the center.
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
+ */
 public class BetterAI extends Player {
 
 	public BetterAI(String name, Color color) {
@@ -69,6 +75,14 @@ public class BetterAI extends Player {
 		return master.weightedRandom();
 	}
 	
+	/**
+	 * Check if color can make a trap, a trap is either a stack trap or a trap where
+	 * color makes a move that gives him more than one option to win,
+	 * which means the opponent can't block both of them.
+	 * @param board
+	 * @param color
+	 * @return
+	 */
 	public boolean canTrap(BoardInfo board, Color color) {
 		for (int col : new Range(board.getWidth())) {
 			Board temp = new Board(board);
@@ -80,6 +94,13 @@ public class BetterAI extends Player {
 		return false;
 	}
 	
+	/**
+	 * Check if color has a stack trap, that is a column where he can make a move and win,
+	 * regardless of whether the opponent makes a move there.
+	 * @param board
+	 * @param color
+	 * @return
+	 */
 	public boolean hasStackTrap(BoardInfo board, Color color) {
 		for (int col : new Range(board.getWidth())) {
 			Board temp = new Board(board);
@@ -94,6 +115,12 @@ public class BetterAI extends Player {
 		return false;
 	}
 	
+	/**
+	 * Count the number of ways color can win in a single move.
+	 * @param board
+	 * @param color
+	 * @return
+	 */
 	public int countWinOptions(BoardInfo board, Color color) {
 		int count = 0;
 		for (int col : new Range(board.getWidth())) {

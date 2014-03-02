@@ -4,6 +4,11 @@ import utils.Input;
 import hw4.Color;
 import hw4.Player;
 
+/**
+ * Human communicates with a human via System.in and System.out to ask him what move he wants to make.
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
+ */
 public class Human extends Player {
 	public Human(String name, Color color) {
 		super(name, color);
