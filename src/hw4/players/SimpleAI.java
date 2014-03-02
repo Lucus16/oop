@@ -36,8 +36,12 @@ public class SimpleAI extends Player {
 				return col2;
 			}
 		}
-		
-		return gen.nextInt(board.getWidth());
+		//Random move
+		col = -1;
+		while (!board.validMove(col)) {
+			col = gen.nextInt(board.getWidth());
+		}
+		return col;
 	}
 	
 	public int canWinInOne(BoardInfo board, Color color) {

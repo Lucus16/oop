@@ -16,13 +16,25 @@ public class Game {
 	public Color play() {
 		Color turn = FIRST;
 		while (!board.hasEnded()) {
-			int move = (turn == Color.YELLOW ? yellow : red).getMove();
+			System.out.println(board);
+			System.out.println(getPlayerByColor(turn).getName() + "'s turn.");
+			int move = getPlayerByColor(turn).getMove();
 			board.move(turn, move);
 			red.update();
 			yellow.update();
 			turn = turn.other();
 		}
+		System.out.println(board);
+		if (board.winner() == Color.NONE) {
+			System.out.println("The game ended in a draw.");
+		} else {
+			System.out.println(getPlayerByColor(board.winner()).getName() + " has won! Congratulations!");
+		}
 		return board.winner();
+	}
+	
+	private Player getPlayerByColor(Color color) {
+		return (color == Color.YELLOW ? yellow : red);
 	}
 }
 

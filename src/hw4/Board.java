@@ -150,7 +150,10 @@ public class Board implements BoardInfo, Cloneable {
 				sb.append("[" + slots[col][row].toChar() + "]");
 			}
 		}
-		sb.append("\n 1  2  3  4  5  6  7");
+		sb.append('\n');
+		for (int i : new Range(WIDTH)) {
+			sb.append((i == lastMove ? ">" + (i + 1) + "<" : " " + (i + 1) + " "));
+		}
 		return sb.toString();
 	}
 

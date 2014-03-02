@@ -25,7 +25,7 @@ public class BetterAI extends Player {
 			templist.setElem(col, board.validMove(col));
 		}
 		master.apply(templist);
-		if (master.count() == 1) { debug(master); return master.first(); }
+		if (master.count() == 1) { return master.first(); }
 		//If I can win in one move, filter all non-winning moves
 		for (int col : new Range(board.getWidth())) {
 			Board temp = new Board(board);
@@ -33,7 +33,7 @@ public class BetterAI extends Player {
 			templist.setElem(col, temp.hasEnded() && temp.winner() == color);
 		}
 		if (!templist.isEmpty()) { master.apply(templist); }
-		if (master.count() == 1) { debug(master); return master.first(); }
+		if (master.count() == 1) { return master.first(); }
 		//If the opponent can win in one move, filter all non-preventing moves
 		for (int col : new Range(board.getWidth())) {
 			Board temp = new Board(board);
@@ -41,7 +41,7 @@ public class BetterAI extends Player {
 			templist.setElem(col, temp.hasEnded() && temp.winner() == color.other());
 		}
 		if (!templist.isEmpty()) { master.apply(templist); }
-		if (master.count() == 1) { debug(master); return master.first(); }
+		if (master.count() == 1) { return master.first(); }
 		//If the opponent can win by making the same move I will make, filter all such moves.
 		for (int col : new Range(board.getWidth())) {
 			Board temp = new Board(board);
@@ -50,7 +50,7 @@ public class BetterAI extends Player {
 			templist.setElem(col, !(temp.hasEnded() && temp.winner() == color.other()));
 		}
 		if (!templist.isEmpty()) { master.apply(templist); }
-		if (master.count() == 1) { debug(master); return master.first(); }
+		if (master.count() == 1) { return master.first(); }
 		//If I can make a move which will give me two winning moves, filter all other moves.
 		for (int col : new Range(board.getWidth())) {
 			Board temp = new Board(board);
@@ -58,7 +58,7 @@ public class BetterAI extends Player {
 			templist.setElem(col, countWinOptions(temp, color) > 1 || hasStackTrap(temp, color));
 		}
 		if (!templist.isEmpty()) { master.apply(templist); }
-		if (master.count() == 1) { debug(master); return master.first(); }
+		if (master.count() == 1) { return master.first(); }
 		//If the opponent can make a move which gives him two winning moves, filter all moves that don't prevent this.
 //		for (int col : new Range(board.getWidth())) {
 //			Board temp = new Board(board); 
@@ -83,12 +83,7 @@ public class BetterAI extends Player {
 			templist.setElem(col, !canTrap(temp, color.other()));
 		}
 		if (!templist.isEmpty()) { master.apply(templist); }
-		debug(master);
 		return master.weightedRandom();
-	}
-	
-	public void debug(Blacklist bl) {
-		System.out.println(bl);
 	}
 	
 	public boolean canTrap(BoardInfo board, Color color) {

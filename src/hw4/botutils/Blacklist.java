@@ -13,8 +13,7 @@ public class Blacklist {
 	private Random generator;
 	
 	public Blacklist(int n) {
-		//generator = new Random(System.currentTimeMillis()); //1 1 3 4 4 4 1 5 2 3
-		generator = new Random(1);
+		generator = new Random(System.currentTimeMillis());
 		list = new int[n];
 		for (int i : new Range(list.length)) {
 			list[i] = 1;
