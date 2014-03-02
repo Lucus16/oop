@@ -1,5 +1,12 @@
 package hw4;
 
+/**
+ * Immutable interface for the Board class in the hw4 (Connect Four) package.
+ * Supplies info about the gamestate: raw data (no grid), a standard 
+ * representation and some utilities for AI and printing.
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
+ */
 public interface BoardInfo {
 	/**
 	 * Get the color of a slot on the board.
@@ -20,14 +27,16 @@ public interface BoardInfo {
 	public Color winner();
 	
 	/**
-	 * Return whether making a move in column col is valid, that is, the column number is valid and that column is not full.
+	 * Return whether making a move in column col is valid, that is, the column 
+	 * number is valid and that column is not full.
 	 * @param col
 	 * @return whether the move is valid
 	 */
 	public boolean validMove(int col);
 	
 	/**
-	 * Return whether col, row is a valid slot, that is, whether the column number and the row number are in range of the board.
+	 * Return whether col, row is a valid slot, that is, whether the column 
+	 * number and the row number are in range of the board.
 	 * @param col
 	 * @param row
 	 * @return

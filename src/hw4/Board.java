@@ -3,6 +3,10 @@ package hw4;
 import utils.Range;
 
 /**
+ * Major gamestate bookkeeping class for Connect Four. Allows 
+ * manipulation of the gamestate through the move(Color,int) function only. 
+ * Specifically does not allow game resets. Supplies info about the gamestate 
+ * through the BoardInfo interface.
  * @author Lars Jellema s4388747
  * @author Sal Wolffs s4064542
  */
@@ -14,7 +18,7 @@ public class Board implements BoardInfo {
 	private int lastMove;
 	
 	/**
-	 * Create a new, empty board.
+	 * Create a new, empty board of standard size 7*8.
 	 */
 	public Board() {
 		this.width = 7;
@@ -86,7 +90,8 @@ public class Board implements BoardInfo {
 	
 	/**
 	 * If an invalid move is sent, for example in a column that is full,
-	 * the moving player loses. The validity of a move can be checked with validMove() beforehand.
+	 * the moving player loses. The validity of a move can be checked with 
+	 * validMove() beforehand.
 	 * @param color The color that makes the move
 	 * @param col The column where the move is made
 	 * @return whether the move could be made.
@@ -154,7 +159,8 @@ public class Board implements BoardInfo {
 	}
 	
 	/**
-	 * Check whether there's four in a row going through coordinates (x,y) in specific direction (dx,dy)
+	 * Check whether there's four in a row going through coordinates (x,y) in 
+	 * specific direction (dx,dy)
 	 * @param x
 	 * @param y
 	 * @param dx

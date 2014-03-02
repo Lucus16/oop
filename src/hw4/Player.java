@@ -1,5 +1,11 @@
 package hw4;
 
+/**
+ * Abstract class to allow the Game class to interface in a uniform manner with
+ * AI and human players.
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
+ */
 public abstract class Player {
 	protected BoardInfo board;
 	protected Color color;
@@ -16,8 +22,9 @@ public abstract class Player {
 	}
 	
 	/**
-	 * Give the player a read only reference to the board he can use to inspect it while playing,
-	 * as well as the color he will be playing. The player should store both of these.
+	 * Give the player a read only reference to the board he can use to inspect 
+	 * it while playing, as well as the color he will be playing. The player 
+	 * should store both of these.
 	 * @param board
 	 */
 	public void initGame(BoardInfo board) {

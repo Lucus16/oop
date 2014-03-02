@@ -1,5 +1,10 @@
 package hw4;
 
+/**
+ * Color enum offering basic properties of a given color.
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
+ */
 public enum Color {
 	NONE, YELLOW, RED;
 	

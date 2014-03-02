@@ -1,5 +1,11 @@
 package hw4;
 
+/**
+ * Main Connect Four class. Sets up a game during construction. Once 
+ * set up, a call to play() runs the game until an end condition appears.
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
+ */
 public class Game {
 	public static final Color FIRST = Color.YELLOW; 
 	private Board board;
@@ -19,7 +25,8 @@ public class Game {
 	}
 	
 	/**
-	 * Play the game. This routine polls the players for moves in turns until the game has ended.
+	 * Play the game. This routine polls the players for moves in turns until 
+	 * the game has ended.
 	 * It also handles displaying the board, the turns and the winner.
 	 * @return the color of the winner of the game
 	 */
