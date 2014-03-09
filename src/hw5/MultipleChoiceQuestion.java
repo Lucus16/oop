@@ -4,11 +4,22 @@ import java.util.Random;
 
 import utils.Range;
 
+/**
+ * A multiple choice question.
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
+ */
 public class MultipleChoiceQuestion extends Question {
 	private final String question;
 	private String[] answers;
 	private int correctAnswer;
 	
+	/**
+	 * Create a new multiple choice question.
+	 * @param question
+	 * @param answers
+	 * @param correctAnswer
+	 */
 	public MultipleChoiceQuestion(String question, String[] answers, int correctAnswer) {
 		assert answers.length <= 26;
 		this.question = question;

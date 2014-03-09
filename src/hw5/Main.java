@@ -1,5 +1,10 @@
 package hw5;
 
+/**
+ * Main class with an example quiz.
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
+ */
 public class Main {
 	public static void main(String[] args) {
 		Quiz quiz = new Quiz();
@@ -19,7 +24,7 @@ public class Main {
 		quiz.addQuestion(new OpenQuestion("Welke nederlandse zanger heeft een naam die lijkt te bestaan uit twee talen?", "Frans Duijts"));
 		quiz.addQuestion(new TwoChoiceQuestion("Can you answer this question correctly?", "Yes", "No", 0));
 		quiz.addQuestion(new OpenQuestion("What's the name of the god of balance in RuneScape?", "Guthix"));
-		quiz.addQuestion(new OpenQuestion("What is the name of the daedric prince of madness in Skyrim?", "Sheogorath"));
+		quiz.addQuestion(new OpenQuestion("What is the name of the daedric prince of madness in the Elder Scrolls games?", "Sheogorath"));
 		quiz.addQuestion(new OpenQuestion("What is the name of the cat that leaves a rainbow behind as it flies through space?", "Nyan Cat"));
 		quiz.addQuestion(new OpenQuestion("How many bottles of beer on the wall?", "99"));
 		quiz.takeQuiz();
