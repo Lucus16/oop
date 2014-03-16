@@ -7,7 +7,7 @@ package hw6;
  * @version 1.1
  * @date 28-02-2013
  */
-public class Node<T>
+public class Node<T extends Comparable<T>> implements Comparable<Node<T>>
 {
     // the data field
     private T item;
@@ -57,4 +57,9 @@ public class Node<T>
     public String toString() {
         throw new UnsupportedOperationException("toString : not supported yet.");        
     }
+
+	@Override
+	public int compareTo(Node<T> t) {
+		return this.item.compareTo(t.item);
+	}
 }
