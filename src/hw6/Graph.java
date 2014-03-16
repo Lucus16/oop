@@ -11,15 +11,18 @@ import java.util.Collection;
  * @date 28-02-2013
  */
 public interface Graph extends Comparable<Graph> {
-	/*
+	/**
 	 * To obtain the successors for a specific (node of a) graph
 	 * 
 	 * @return a collection of graphs containing the successors
 	 */
-	public Collection<Graph> successors();
+	Collection<Graph> successors();
 
-	/*
+	/**
 	 * For marking final / goal Graphs.
 	 */
-	public boolean isGoal();
+	boolean isGoal();
+	
+	int distToGoal();
+	
 }

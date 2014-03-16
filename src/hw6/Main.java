@@ -13,6 +13,8 @@ public class Main {
 
 		SlidingGame s = new SlidingGame(game);
 		System.out.println(s);
+		System.out.println(SlidingGame.goal);
+		System.out.println(SlidingGame.goal.distToGoal());
 		// Solver solver = new Solver(s);
 		// System.out.println(solver.solve());
 	}
