@@ -13,6 +13,22 @@ import utils.Range;
  *       implementing the Graph interface
  */
 public class SlidingGame implements Graph {
+	/**
+	 * enum of the Cardinal directions, with offsets
+	 * @author Sal
+	 *
+	 */
+	public enum Direction {
+		N(0,-1), E(1,0), S(0,1), W(-1,0);
+		
+		private final int dx;
+		private final int dy;
+		
+		Direction(int dx,int dy){
+			this.dx=dx;
+			this.dy=dy;
+		}
+	}
 	public static final int N = 3, SIZE = N * N, HOLE = SIZE;
 	public static final SlidingGame goal = new SlidingGame(new Range(1,N*N+1));
 	/**
@@ -62,17 +78,38 @@ public class SlidingGame implements Graph {
 		incorrectness = manhattanToGoal();
 	}
 	
+	public SlidingGame(SlidingGame original){
+		board = new int[N][N];
+		copy(original);
+	}
 	
+	public SlidingGame(SlidingGame original, Direction d){
+		board = new int[N][N];
+		copy(original);
+		move(d);
+	}
+	
+	private void copy(SlidingGame original){
+		for(int i : new Range(N)){
+			for(int j : new Range(N)){
+				board[i][j]=original.board[i][j];
+			}
+		}
+		holeX = original.holeX;
+		holeY = original.holeY;
+		incorrectness = original.incorrectness;
+	}
 	
 	private int manhattanToGoal() {
 		int accu=0;
-		int fieldDistance;
+		int tileDistance;
 		for(int i : new Range(N)){
 			for(int j : new Range(N)){
+				tileDistance = 0;
 				if(board[i][j] == HOLE) break;
-				fieldDistance = 0;
-				fieldDistance = Math.abs((board[i][j]-1 / N) - i);
-				//TODO: complete and verify math
+				tileDistance = Math.abs(((board[i][j]-1) / N) - i);
+				tileDistance += Math.abs(((board[i][j]-1) % N) - j);
+				accu+=tileDistance;
 			}
 		}
 		return accu;
@@ -127,13 +164,30 @@ public class SlidingGame implements Graph {
 
 	@Override
 	public Collection<Graph> successors() {
-		throw new UnsupportedOperationException(
-				"successors : not supported yet.");
+		Collection<Graph> accu = new ArrayList<Graph>();
+		for (Direction d : Direction.values()){
+			if (canMove(d)){
+				accu.add(new SlidingGame(this,d));
+			}
+		}
+		return accu;
 	}
-
+	
+	public boolean canMove(Direction d){
+		return holeX+d.dx >= 0 && holeX+d.dx < N && 
+				holeY+d.dy >= 0 && holeY+d.dy < N;
+	}
+	
+	private void move(Direction d){
+		if(!canMove(d)) throw new IllegalArgumentException();
+		board[holeY][holeX] = board[holeY+d.dy][holeX+d.dx];
+		board[holeY+d.dy][holeX+d.dx] = HOLE;
+		incorrectness = manhattanToGoal();
+	}
+	
 	@Override
 	public int compareTo(Graph g) {
-		return Integer.compare(this.distToGoal(), g.distToGoal());
+		return this.distToGoal() - g.distToGoal();
 	}
 
 	@Override
