@@ -111,7 +111,7 @@ public class SlidingGame implements Graph {
 		for(int i : new Range(N)){
 			for(int j : new Range(N)){
 				tileDistance = 0;
-				if(board[i][j] == HOLE) break;
+				if(board[i][j] == HOLE) continue;
 				tileDistance = Math.abs(((board[i][j]-1) / N) - i);
 				tileDistance += Math.abs(((board[i][j]-1) % N) - j);
 				accu+=tileDistance;
