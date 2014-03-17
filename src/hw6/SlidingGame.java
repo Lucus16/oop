@@ -63,6 +63,10 @@ public class SlidingGame implements Graph {
 		calculateHash();
 	}
 	
+	/**
+	 * General constructor accepting any iterator.
+	 * @param flatConfig The source iterable to be translated and stored.
+	 */
 	public SlidingGame(Iterable<Integer> flatConfig) {
 		board = new int[N][N];
 		Iterator<Integer> walker = flatConfig.iterator();
@@ -81,11 +85,20 @@ public class SlidingGame implements Graph {
 		calculateHash();
 	}
 	
+	/**
+	 * copy constructor
+	 * @param original
+	 */
 	public SlidingGame(SlidingGame original){
 		board = new int[N][N];
 		copy(original);
 	}
 	
+	/**
+	 * move constructor, creates a copy with the move d applied.
+	 * @param original
+	 * @param d
+	 */
 	public SlidingGame(SlidingGame original, Direction d){
 		board = new int[N][N];
 		copy(original);
@@ -93,6 +106,10 @@ public class SlidingGame implements Graph {
 		calculateHash();
 	}
 	
+	/**
+	 * shared code between copy and move constructors.
+	 * @param original
+	 */
 	private void copy(SlidingGame original){
 		for(int i : new Range(N)){
 			for(int j : new Range(N)){
@@ -105,6 +122,10 @@ public class SlidingGame implements Graph {
 		hash = original.hash;
 	}
 	
+	/**
+	 * distance calculation function.
+	 * @return the manhattan distance of this board to the goal.
+	 */
 	private int manhattanToGoal() {
 		int accu=0;
 		int tileDistance;
@@ -112,6 +133,7 @@ public class SlidingGame implements Graph {
 			for(int j : new Range(N)){
 				tileDistance = 0;
 				if(board[i][j] == HOLE) continue;
+				//some array index math to calculate distance quickly.
 				tileDistance = Math.abs(((board[i][j]-1) / N) - i);
 				tileDistance += Math.abs(((board[i][j]-1) % N) - j);
 				accu+=tileDistance;
@@ -178,11 +200,21 @@ public class SlidingGame implements Graph {
 		return accu;
 	}
 	
+	/**
+	 * checks if the given move d is valid on this board.
+	 * @param d
+	 * @return
+	 */
 	public boolean canMove(Direction d){
 		return holeX+d.dx >= 0 && holeX+d.dx < N && 
 				holeY+d.dy >= 0 && holeY+d.dy < N;
 	}
 	
+	/**
+	 * Moves a tile. Private to keep class immutable 
+	 * (only called from constructors)
+	 * @param d Direction to move.
+	 */
 	private void move(Direction d){
 		if(!canMove(d)) throw new IllegalArgumentException();
 		board[holeY][holeX] = board[holeY+d.dy][holeX+d.dx];
