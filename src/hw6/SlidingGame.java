@@ -186,7 +186,9 @@ public class SlidingGame implements Graph {
 	private void move(Direction d){
 		if(!canMove(d)) throw new IllegalArgumentException();
 		board[holeY][holeX] = board[holeY+d.dy][holeX+d.dx];
-		board[holeY+d.dy][holeX+d.dx] = HOLE;
+		holeX += d.dx;
+		holeY += d.dy;
+		board[holeY][holeX] = HOLE;
 		incorrectness = manhattanToGoal();
 	}
 	

@@ -9,7 +9,7 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) {
-		int[] game = { 1, 2, 3, 4, 9, 6, 7, 5, 8 };
+		int[] game = { 4, 7, 6, 3, 8, 2, 9, 1, 5 };
 
 		SlidingGame s = new SlidingGame(game);
 		System.out.println(s);
