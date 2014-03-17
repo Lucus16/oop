@@ -38,6 +38,7 @@ public class SlidingGame implements Graph {
 	private int board[][];
 	private int holeX, holeY;
 	private int incorrectness;
+	private int hash;
 
 	/**
 	 * A constructor that initializes the board with the specified array
@@ -59,6 +60,7 @@ public class SlidingGame implements Graph {
 			}
 		}
 		incorrectness = manhattanToGoal();
+		calculateHash();
 	}
 	
 	public SlidingGame(Iterable<Integer> flatConfig) {
@@ -76,6 +78,7 @@ public class SlidingGame implements Graph {
 		}
 		assert !walker.hasNext() : "Specified board too long.";
 		incorrectness = manhattanToGoal();
+		calculateHash();
 	}
 	
 	public SlidingGame(SlidingGame original){
@@ -87,6 +90,7 @@ public class SlidingGame implements Graph {
 		board = new int[N][N];
 		copy(original);
 		move(d);
+		calculateHash();
 	}
 	
 	private void copy(SlidingGame original){
@@ -98,6 +102,7 @@ public class SlidingGame implements Graph {
 		holeX = original.holeX;
 		holeY = original.holeY;
 		incorrectness = original.incorrectness;
+		hash = original.hash;
 	}
 	
 	private int manhattanToGoal() {
@@ -194,5 +199,18 @@ public class SlidingGame implements Graph {
 	public int distToGoal() {
 		return incorrectness;
 	}
-
+	
+	@Override
+	public int hashCode() {
+		return hash;
+	}
+	
+	private void calculateHash() {
+		hash = 0;
+		for (int x : new Range(N)) {
+			for (int y : new Range(N)) {
+				hash += board[y][x] * (y * N + x);
+			}
+		}
+	}
 }
