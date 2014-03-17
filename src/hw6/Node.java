@@ -7,9 +7,8 @@ import java.util.List;
  * For maintaining lists of T-elements enabling a structure suited for backwards
  * traversal
  * 
- * @author Pieter Koopman, Sjaak Smetsers
- * @version 1.1
- * @date 28-02-2013
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
  */
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 	// the data field
@@ -17,11 +16,10 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 	// a reference to the predecessor
 	private Node<T> previous;
 
-	/*
+	/**
 	 * A constructor that initializes each node with the specified values
 	 * 
 	 * @param from the node preceding the current node
-	 * 
 	 * @param item the initial data item
 	 */
 	public Node(Node<T> from, T item) {
@@ -29,7 +27,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		this.item = item;
 	}
 
-	/*
+	/**
 	 * a getter for the item
 	 * 
 	 * @return item
@@ -38,7 +36,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		return item;
 	}
 
-	/*
+	/**
 	 * a getter for the predecessor
 	 * 
 	 * @return previous
@@ -75,7 +73,6 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 	}
 	
 	/**
-	 * 
 	 * @return the path to this Node inclusive.
 	 */
 	public List<T> path(){
@@ -89,13 +86,13 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 	 */
 	private ArrayList<T> recPath() {
 		ArrayList<T> accu;
-		if(previous==null) {
+		if(previous == null) {
 			accu = new ArrayList<T>();
 		}
-		else{
+		else {
 			accu = previous.recPath();
 		}
-			accu.add(item);
-			return accu;
+		accu.add(item);
+		return accu;
 	}
 }

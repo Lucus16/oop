@@ -6,9 +6,8 @@ import java.util.Collection;
  * An interface for representing (abstract) constant graphs, i.e. graphs of
  * which the structure cannot be changed.
  * 
- * @author Sjaak Smetsers
- * @version 1.1
- * @date 28-02-2013
+ * @author Lars Jellema s4388747
+ * @author Sal Wolffs s4064542
  */
 public interface Graph extends Comparable<Graph> {
 	/**
@@ -23,6 +22,9 @@ public interface Graph extends Comparable<Graph> {
 	 */
 	boolean isGoal();
 	
+	/**
+	 * returns the approximate distance to the goal.
+	 * @return
+	 */
 	int distToGoal();
-	
 }
