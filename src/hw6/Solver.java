@@ -34,6 +34,7 @@ public class Solver {
 			for (Graph succ : next.getItem().successors()) {
 				toExamine.add(new Node<Graph>(next,succ));
 			}
+			examined.add(next.getItem());
 		}
 		return null;
 	}

@@ -1,5 +1,8 @@
 package hw6;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * For maintaining lists of T-elements enabling a structure suited for backwards
  * traversal
@@ -44,7 +47,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		return previous;
 	}
 
-	/*
+	/**
 	 * deteremine the length of the current list
 	 * 
 	 * @return the length as an integer
@@ -58,14 +61,41 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		}
 		return length;
 	}
+	
+	
 
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException("toString : not supported yet.");
+		return path().toString();
 	}
 
 	@Override
 	public int compareTo(Node<T> t) {
 		return this.item.compareTo(t.item);
+	}
+	
+	/**
+	 * 
+	 * @return the path to this Node inclusive.
+	 */
+	public List<T> path(){
+		return recPath();
+	}
+	
+	/**
+	 * Recursive method to find the path to this node inclusive.
+	 * Wrapped to hide specific return type.
+	 * @return
+	 */
+	private ArrayList<T> recPath() {
+		ArrayList<T> accu;
+		if(previous==null) {
+			accu = new ArrayList<T>();
+		}
+		else{
+			accu = previous.recPath();
+		}
+			accu.add(item);
+			return accu;
 	}
 }
