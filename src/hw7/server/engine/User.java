@@ -6,12 +6,13 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 public class User {
+	private String username;
 	private String email;
 	private byte[] salt;
 	private byte[] passwordHash;
 	private ShoppingCart cart;
 	
-	public User(String email, String password) {
+	public User(String username, String email, String password) {
 		assert password.length() <= 51;
 		SecureRandom gen = new SecureRandom();
 		salt = new byte[4];
@@ -27,7 +28,8 @@ public class User {
 		}
 		md.update(password.getBytes());
 		md.update(salt);
-		this.passwordHash = md.digest(); 
+		this.passwordHash = md.digest();
+		this.username = username;
 	}
 
 	public byte[] getSalt() {

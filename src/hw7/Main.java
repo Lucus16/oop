@@ -1,11 +1,15 @@
 package hw7;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import hw7.shared.Price;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class Main {
 
-	public static void main(String[] args) throws NoSuchAlgorithmException {
+	public static void main(String[] args) {
+		Price p = new Price(1.23);
+		System.out.println(p);
 	}
 
 }
