@@ -16,7 +16,9 @@ import utils.Range;
  */
 public class Engine {
 	private HashMap<String, User> users;
-	private static final char[] passChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+	private static final char[] passChars = 
+			("abcdefghijklmnopqrstuvwxyz"+
+					"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").toCharArray();
 	private static final int passLength = 8;
 
 	public byte[] getSalt(String username) {

@@ -46,18 +46,18 @@ public class ServerFront {
 	 * @param email
 	 * @return errorCode, 0 for success
 	 */
-	int addUser(String username, String email) {
+	public int addUser(String username, String email) {
 		String password = engine.addUser(username, email);
 		sendMail(email, "Your login details", "Your login details are:\n\nUsername: " + username +
 				"\nPassword: " + password);
 		return 0;
 	}
 	
-	byte[] getSalt(String username) {
+	public byte[] getSalt(String username) {
 		return engine.getSalt(username);
 	}
 	
-	int login(String username, byte[] hash) {
+	public int login(String username, byte[] hash) {
 		User user = engine.getUser(username);
 		if (user == null) {
 			return 2;
