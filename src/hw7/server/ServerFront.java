@@ -10,12 +10,10 @@ import hw7.server.engine.Engine;
 import hw7.server.engine.User;
 
 public class ServerFront {
-	private FrontEnd frontEnd;
 	private Engine engine;
 	private User user;
 	
-	public ServerFront(FrontEnd frontEnd, Engine engine) {
-		this.frontEnd = frontEnd;
+	public ServerFront(Engine engine) {
 		this.engine = engine;
 		this.user = null;
 	}
