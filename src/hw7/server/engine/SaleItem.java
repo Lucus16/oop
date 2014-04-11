@@ -2,6 +2,11 @@ package hw7.server.engine;
 
 import hw7.shared.Price;
 
+/**
+ * 
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class SaleItem {
 	private static int nextId;
 	

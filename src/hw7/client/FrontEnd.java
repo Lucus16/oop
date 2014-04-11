@@ -5,6 +5,11 @@ import java.security.NoSuchAlgorithmException;
 
 import hw7.server.ServerFront;
 
+/**
+ * 
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public abstract class FrontEnd {
 	protected ServerFront serverFront;
 	

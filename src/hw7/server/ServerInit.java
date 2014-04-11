@@ -10,6 +10,11 @@ import java.io.ObjectOutputStream;
 
 import hw7.server.engine.Engine;
 
+/**
+ * 
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class ServerInit {
 	private Engine engine;
 	private File dataFile;

@@ -9,6 +9,11 @@ import hw7.client.FrontEnd;
 import hw7.server.engine.Engine;
 import hw7.server.engine.User;
 
+/**
+ * 
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class ServerFront {
 	private Engine engine;
 	private User user;

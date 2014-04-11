@@ -11,8 +11,8 @@ import utils.Range;
 
 /**
  * TODO: Add validation for input fields
- * @author lars
- *
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
  */
 public class Engine {
 	private HashMap<String, User> users;

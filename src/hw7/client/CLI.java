@@ -5,6 +5,11 @@ import java.util.Scanner;
 import hw7.server.ServerFront;
 import hw7.server.ServerInit;
 
+/**
+ * 
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class CLI extends FrontEnd {
 	private Scanner scanner;
 	
