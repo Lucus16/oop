@@ -35,7 +35,7 @@ public class GridView extends JPanel {
     }
     
     @Override
-    public void paintComponent ( Graphics g ) {
+    public void paintComponent(Graphics g) {
     	super.paintComponent(g);
 		g.drawImage(gridImage, 0, 0, null);
     }
