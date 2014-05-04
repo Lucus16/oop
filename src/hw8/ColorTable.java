@@ -29,6 +29,10 @@ public class ColorTable {
         this.colors = new int[size][3];
     }
     
+    public ColorTable() {
+    	rainbow();
+    }
+    
     /**
      * fills the table randomly
      */
@@ -38,6 +42,22 @@ public class ColorTable {
     			color[i] = (int)(Math.random() * 256);
     		}
     	}        
+    }
+    
+    public void rainbow() {
+    	colors = new int[90][3];
+    	for (int n = 0; n < 3; n++) {
+        	for (int i = 0; i < 15; i++) {
+        		colors[i + 30 * n][n] = 255;
+        		colors[i + 30 * n][(n + 1) % 3] = i * 17;
+        		colors[i + 30 * n][(n + 2) % 3] = 0;
+        	}
+        	for (int i = 0; i < 15; i++) {
+        		colors[i + 15 + 30 * n][n] = 255 - i * 17;
+        		colors[i + 15 + 30 * n][(n + 1) % 3] = 255;
+        		colors[i + 15 + 30 * n][(n + 2) % 3] = 0;
+        	}
+    	}
     }
 
     /**

@@ -4,18 +4,17 @@ public class MandelView {
 	private int limit;
 	private ColorTable colorTable;
 	private GridView gridView;
-	private double minX, minY, maxX, maxY;
+	private double minX, minY, maxX, maxY, scale;
 	
 	public MandelView(GridView gridView) {
-		setLimit(1024);
+		setLimit(256);
 		this.gridView = gridView;
-		colorTable = new ColorTable(2);
-		colorTable.setColor(0, ColorTable.BLACK);
-		colorTable.setColor(1, ColorTable.WHITE);
-		minX = -2;
-		minY = -2;
-		maxX = 2;
-		maxY = 2;
+		colorTable = new ColorTable();
+		//colorTable = new ColorTable(16);
+		//colorTable.randomize();
+		//colorTable.setColor(0, ColorTable.BLACK);
+		//colorTable.setColor(1, ColorTable.WHITE);
+		setView(0, 0, 150);
 	}
 	
 	public void redraw() {
@@ -48,6 +47,15 @@ public class MandelView {
 		this.maxY = maxY;
 		redraw();
 	}
+	
+	public void setView(double centerX, double centerY, double scale) {
+		this.scale = scale;
+		minX = centerX - gridView.getWidth() / 2 / scale;
+		minY = centerY - gridView.getHeight() / 2 / scale;
+		maxX = centerX + gridView.getWidth() / 2 / scale;
+		maxY = centerY + gridView.getHeight() / 2 / scale;
+		redraw();
+	}
 
 	public int getLimit() {
 		return limit;
@@ -63,5 +71,9 @@ public class MandelView {
 
 	public void setColorTable(ColorTable colorTable) {
 		this.colorTable = colorTable;
+	}
+
+	public double getScale() {
+		return scale;
 	}
 }

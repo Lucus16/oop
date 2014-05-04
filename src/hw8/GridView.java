@@ -27,11 +27,12 @@ public class GridView extends JPanel {
      * @param height of the panel
      */
     public GridView (int width, int height) {
+    	nrOfPixelsSet = 0;
     	gridWidth = width;
     	gridHeight = height;
 		gridImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		gridRaster = gridImage.getRaster();
-        setPreferredSize(new Dimension(width,height));
+        setPreferredSize(new Dimension(width, height));
     }
     
     @Override
@@ -51,7 +52,7 @@ public class GridView extends JPanel {
         nrOfPixelsSet++;
         if (nrOfPixelsSet > REPAINT_NUMBER) {
         	nrOfPixelsSet = 0;
-        	repaint ();
+        	repaint();
         }
     }
 
