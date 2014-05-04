@@ -16,7 +16,7 @@ public class HiContrast implements Painter {
 	public int[] getColor(int n) {
 		int prim,sec,tert,red,green,blue;
 		prim = full;
-		sec  = n % 0x100;
+		sec  = (n * 35) % 0x100;
 		tert = zero;
 		if(n%2 == 1){
 			prim = full - prim;

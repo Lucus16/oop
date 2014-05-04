@@ -4,7 +4,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class MouseHandler implements MouseListener, MouseMotionListener {
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.event.MouseInputListener;
+
+public class MouseHandler extends MouseInputAdapter {
 	private MandelView mandelView;
 	
 	public MouseHandler(MandelView mandelView) {
@@ -52,11 +55,4 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
