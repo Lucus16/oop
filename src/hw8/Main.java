@@ -11,22 +11,21 @@ public class Main {
 	    JFrame mainFrame = new JFrame("Mandelbrot");
 	    	
 	    Insets insets = mainFrame.getInsets();
-	    GridView grid = new GridView(WIDTH - insets.left - insets.right,
-	    		HEIGHT - insets.top - insets.bottom);
+	    MandelView mandelView = new MandelView(WIDTH - insets.left -
+	    		insets.right, HEIGHT - insets.top - insets.bottom);
 	    
-	    mainFrame.add(grid);
+	    mainFrame.add(mandelView);
 	    mainFrame.pack();
 
 		mainFrame.setLocationRelativeTo(null);
 	    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    mainFrame.setResizable(false);
 	    mainFrame.setVisible(true);
-		
-		MandelView mandelView = new MandelView(grid);
+	    
 		mandelView.redraw();
 		
 		MouseHandler mh = new MouseHandler(mandelView);
-	    grid.addMouseListener(mh);
-	    grid.addMouseMotionListener(mh);
+	    mandelView.addMouseListener(mh);
+	    mandelView.addMouseMotionListener(mh);
 	}
 }
