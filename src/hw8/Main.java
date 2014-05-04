@@ -1,8 +1,6 @@
 package hw8;
 
 import java.awt.Insets;
-import java.awt.event.MouseListener;
-
 import javax.swing.JFrame;
 
 public class Main {

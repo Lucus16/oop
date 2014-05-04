@@ -3,8 +3,6 @@
  */
 package hw8;
 
-import java.awt.Color;
-
 /**
  * @author sal
  *
