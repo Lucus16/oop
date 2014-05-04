@@ -2,18 +2,14 @@ package hw8;
 
 public class MandelView {
 	private int limit;
-	private ColorTable colorTable;
+	private Painter painter;
 	private GridView gridView;
 	private double minX, minY, maxX, maxY, scale;
 	
 	public MandelView(GridView gridView) {
 		setLimit(256);
 		this.gridView = gridView;
-		colorTable = new ColorTable();
-		//colorTable = new ColorTable(16);
-		//colorTable.randomize();
-		//colorTable.setColor(0, ColorTable.BLACK);
-		//colorTable.setColor(1, ColorTable.WHITE);
+		painter = new ColorTable();
 		setView(0, 0, 150);
 	}
 	
@@ -22,16 +18,23 @@ public class MandelView {
 			for (int y = 0; y < gridView.getHeight(); y++) {
 				int mandelNum = Mandelbrot.mandelnumber(getXcoord(x), getYcoord(y), limit);
 				if (mandelNum == -1) {
-					gridView.setPixel(x, y, ColorTable.BLACK);
+					gridView.setPixel(x, y, Painter.BLACK);
 				} else {
-					gridView.setPixel(x, y, colorTable.getColor(mandelNum));
-					
+					gridView.setPixel(x, y, painter.getColor(mandelNum));
 				}
 			}
 		}
 		gridView.repaint();
 	}
 	
+	public Painter getPainter() {
+		return painter;
+	}
+
+	public void setPainter(Painter painter) {
+		this.painter = painter;
+	}
+
 	public double getXcoord(int x) {
 		return minX + (maxX - minX) / gridView.getWidth() * x;
 	}
@@ -63,14 +66,6 @@ public class MandelView {
 
 	public void setLimit(int limit) {
 		this.limit = limit;
-	}
-
-	public ColorTable getColorTable() {
-		return colorTable;
-	}
-
-	public void setColorTable(ColorTable colorTable) {
-		this.colorTable = colorTable;
 	}
 
 	public double getScale() {
