@@ -25,7 +25,7 @@ public class Price {
 	}
 	
 	public String toString() {
-		String centString = (cents < 10 ? "0" + cents % 100 : "" + cents % 100);
+		String centString = (cents < 10 ? "0" + cents % 10 : "" + cents % 100);
 		return "€" + cents / 100 + "," + centString;
 	}
 }
