@@ -14,14 +14,18 @@ public class MandelView extends GridView {
 	
 	public MandelView(int width, int height, Painter painter) {
 		super(width, height);
+		this.painter = painter;
 		setZoomRect(null);
 		setLimit(256);
-		this.painter = painter;
-		setView(0, 0, Math.min(getWidth(), getHeight()) / 4);
+		resetView();
 	}
 	
 	public MandelView(int width, int height) {
 		this(width, height, new ColorTable());
+	}
+	
+	public void resetView() {
+		setView(0, 0, Math.min(getWidth(), getHeight()) / 4);
 	}
 	
 	public void addRedrawListener(RedrawListener redrawListener) {

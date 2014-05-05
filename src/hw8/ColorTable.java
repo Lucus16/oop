@@ -2,6 +2,11 @@ package hw8;
 
 import java.awt.Color;
 
+/**
+ * ColorTable is a Painter that paints stuff by cycling through a list of colors
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class ColorTable implements Painter {
     private int[][] colors;
     
@@ -23,6 +28,9 @@ public class ColorTable implements Painter {
         this.colors = new int[size][3];
     }
     
+    /**
+     * Create a rainbow colortable by default
+     */
     public ColorTable() {
     	rainbow();
     }
@@ -38,6 +46,9 @@ public class ColorTable implements Painter {
     	}        
     }
     
+    /**
+     * Generate a table with rainbow colors
+     */
     public void rainbow() {
     	colors = new int[90][3];
     	for (int n = 0; n < 3; n++) {
