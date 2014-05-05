@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
-public class Main {
+public class Main implements RedrawListener {
 	public class GoButtonHandler implements ActionListener {
 		JFormattedTextField xSource,ySource,scaleSource,depthSource;
 		MandelView model;
@@ -58,6 +58,8 @@ public class Main {
 	// the size of the window
 	public static final int WIDTH = 800, HEIGHT = 600;
 	
+	JFormattedTextField xField,yField,scaleField,calcDepthField;
+	
 	public Main() {
 		parser.setMaximumFractionDigits(40);
 	    JFrame mainFrame = new JFrame("Mandelbrot");
@@ -70,26 +72,22 @@ public class Main {
 	    //controls.setOpaque(false);
 	    
 	    controls.add(new JLabel("X:"));
-	    JFormattedTextField xField = 
-	    		new JFormattedTextField(parser);
+	    xField = new JFormattedTextField(parser);
 	    xField.setColumns(8);
 	    controls.add(xField);
 	    
 	    controls.add(new JLabel("Y:"));
-	    JFormattedTextField yField = 
-	    		new JFormattedTextField(parser);
+	    yField = new JFormattedTextField(parser);
 	    yField.setColumns(8);
 	    controls.add(yField);
 	    
 	    controls.add(new JLabel("zoom:"));
-	    JFormattedTextField scaleField = 
-	    		new JFormattedTextField(parser);
+	    scaleField = new JFormattedTextField(parser);
 	    scaleField.setColumns(6);
 	    controls.add(scaleField);
 	    
 	    controls.add(new JLabel("depth:"));
-	    JFormattedTextField calcDepthField = 
-	    		new JFormattedTextField(NumberFormat.getIntegerInstance());
+	    calcDepthField = new JFormattedTextField(NumberFormat.getIntegerInstance());
 	    calcDepthField.setColumns(4);
 	    controls.add(calcDepthField);
 	    
@@ -117,5 +115,13 @@ public class Main {
 	
 	public static void main(String[] args){
 		new Main();
+	}
+
+	@Override
+	public void redrawn(double x, double y, double scale, int depth) {
+		xField.setValue(x);
+		yField.setValue(y);
+		scaleField.setValue(scale);
+		calcDepthField.setValue(depth);
 	}
 }
