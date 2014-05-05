@@ -96,7 +96,16 @@ public class Main implements RedrawListener {
 				new GoButtonHandler(xField, yField,
 						scaleField, calcDepthField, mandelView));
 		controls.add(recalcButton);
-
+		
+		JButton resetButton = new JButton("Reset");
+		resetButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mandelView.resetView();
+			}
+		});
+		controls.add(resetButton);
+		
 		mandelView.add(controls);
 		mandelView.addRedrawListener(this);
 		mainFrame.add(mandelView);
