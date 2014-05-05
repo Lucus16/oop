@@ -6,14 +6,27 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.event.MouseInputAdapter;
 
+/**
+ * Handles mouse events
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class MouseHandler extends MouseInputAdapter {
 	private MandelView mandelView;
 	private Point start, end;
 	
+	/**
+	 * Give the handler the view where it needs to apply the actions.
+	 * @param mandelView
+	 */
 	public MouseHandler(MandelView mandelView) {
 		this.mandelView = mandelView;
 	}
 
+	/**
+	 * Zoom in centered on the click with a factor 2 or zoom out when shift is
+	 * pressed.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.isShiftDown()) {
@@ -26,11 +39,17 @@ public class MouseHandler extends MouseInputAdapter {
 		
 	}
 
+	/**
+	 * Initialize a drag
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		start = e.getPoint();
 	}
 
+	/**
+	 * End a drag and apply it.
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (end != null) {
@@ -39,6 +58,9 @@ public class MouseHandler extends MouseInputAdapter {
 		start = end = null;
 	}
 
+	/**
+	 * Update the zoom rectangle and the coordinates to be zoomed in on
+	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		end = e.getPoint();

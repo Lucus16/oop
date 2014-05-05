@@ -1,8 +1,14 @@
 package hw8;
 
+/**
+ * Mandelbrot class calculates mandel numbers for given coordinates
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class Mandelbrot {
 	/**
-	 * 
+	 * Calculate the mandelbrot number for coordinates (a, b)
+	 * If it's higher than limit, return -1
 	 * @param a
 	 * @param b
 	 * @param limit
@@ -24,6 +30,12 @@ public class Mandelbrot {
 		return n;
 	}
 	
+	/**
+	 * Calculate mandelbrot number with default limit of 100
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	public static int mandelnumber(double a, double b) {
 		return mandelnumber(a, b, 100);
 	}

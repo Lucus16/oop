@@ -12,11 +12,28 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Main class starting the view and adding the interface 
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class Main implements RedrawListener {
+	/**
+	 * Handler for the apply button
+	 */
 	public class GoButtonHandler implements ActionListener {
 		private JFormattedTextField xSource, ySource, scaleSource, depthSource;
 		private MandelView model;
 		
+		/**
+		 * Initialize the handler by storing references to the text fields
+		 * and the model
+		 * @param xSource
+		 * @param ySource
+		 * @param scaleSource
+		 * @param depthSource
+		 * @param model
+		 */
 		public GoButtonHandler(
 				JFormattedTextField xSource,
 				JFormattedTextField ySource,
@@ -30,8 +47,10 @@ public class Main implements RedrawListener {
 			this.model = model;
 		}
 		
-		
-		
+		/**
+		 * Applies the values from the text fields to the model
+		 * @param arg0 the action event
+		 */
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			try {
@@ -50,7 +69,6 @@ public class Main implements RedrawListener {
 				e.printStackTrace();
 			}
 		}
-
 	}
 	static NumberFormat parser = NumberFormat.getInstance();
 	// the size of the window
@@ -60,6 +78,10 @@ public class Main implements RedrawListener {
 	
 	JFormattedTextField xField,yField,scaleField,calcDepthField;
 	
+	/**
+	 * Initialize the main class by creating the window, the view and
+	 * the controls
+	 */
 	public Main() {
 		parser.setMaximumFractionDigits(40);
 		JFrame mainFrame = new JFrame("Mandelbrot");
@@ -69,7 +91,6 @@ public class Main implements RedrawListener {
 				insets.right, HEIGHT - insets.top - insets.bottom);
 		
 		JPanel controls = new JPanel();
-		//controls.setOpaque(false);
 		
 		controls.add(new JLabel("X:"));
 		xField = new JFormattedTextField(parser);
@@ -91,7 +112,7 @@ public class Main implements RedrawListener {
 		calcDepthField.setColumns(6);
 		controls.add(calcDepthField);
 		
-		JButton recalcButton = new JButton("Go");
+		JButton recalcButton = new JButton("Apply");
 		recalcButton.addActionListener(
 				new GoButtonHandler(xField, yField,
 						scaleField, calcDepthField, mandelView));
@@ -123,6 +144,10 @@ public class Main implements RedrawListener {
 		mandelView.addMouseMotionListener(mh);
 	}
 	
+	/**
+	 * Start the mandelbrot viewer by creating a main
+	 * @param args
+	 */
 	public static void main(String[] args){
 		new Main();
 	}

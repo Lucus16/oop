@@ -16,7 +16,6 @@ public class GridView extends JPanel {
 	private static final long serialVersionUID = -5592424980962323516L;
 	private BufferedImage gridImage;
 	private WritableRaster gridRaster;
-	
 	private int gridWidth, gridHeight;
 	
 	/**

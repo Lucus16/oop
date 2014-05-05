@@ -1,16 +1,15 @@
-/**
- * 
- */
 package hw8;
 
 /**
- * @author sal
- *
+ * A Painter that colors steps with a high contrast between steps
+ * next to each other.
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
  */
 public class HiContrast implements Painter {
-	
 	private static int full=0xff,zero=0x00;
 	
+	@Override
 	public int[] getColor(int n) {
 		int prim,sec,tert,red,green,blue;
 		prim = full;
