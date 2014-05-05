@@ -98,6 +98,7 @@ public class Main implements RedrawListener {
 	    controls.add(recalcButton);
 	    
 	    mandelView.add(controls);
+	    mandelView.addRedrawListener(this);
 	    mainFrame.add(mandelView);
 	    mainFrame.pack();
 
