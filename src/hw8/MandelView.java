@@ -10,6 +10,7 @@ public class MandelView extends GridView {
 	private Painter painter;
 	private double minX, minY, maxX, maxY, scale;
 	private Rectangle zoomRect;
+	private RedrawListener redrawListener;
 	
 	public MandelView(int width, int height, Painter painter) {
 		super(width, height);
@@ -23,7 +24,14 @@ public class MandelView extends GridView {
 		this(width, height, new ColorTable());
 	}
 	
+	public void addRedrawListener(RedrawListener redrawListener) {
+		this.redrawListener = redrawListener;
+	}
+	
 	public void redraw() {
+		if (redrawListener != null) {
+			redrawListener.redrawn((minX + maxX) / 2, (minY + maxY) / 2, scale, limit);
+		}
 		for (int x = 0; x < getWidth(); x++) {
 			for (int y = 0; y < getHeight(); y++) {
 				int mandelNum = Mandelbrot.mandelnumber(getXcoord(x),
@@ -74,14 +82,6 @@ public class MandelView extends GridView {
 	
 	public double getYcoord(double y) {
 		return minY + (maxY - minY) / getHeight() * y;
-	}
-	
-	public void setView(double minX, double minY, double maxX, double maxY) {
-		this.minX = minX;
-		this.minY = minY;
-		this.maxX = maxX;
-		this.maxY = maxY;
-		redraw();
 	}
 	
 	public void setView(double centerX, double centerY, double scale) {
