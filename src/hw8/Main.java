@@ -1,6 +1,7 @@
 package hw8;
 
 import java.awt.Insets;
+
 import javax.swing.JFrame;
 
 public class Main {

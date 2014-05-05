@@ -1,16 +1,26 @@
 package hw8;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
 public class MandelView extends GridView {
 	private static final long serialVersionUID = -6339535732137830801L;
 	private int limit;
 	private Painter painter;
 	private double minX, minY, maxX, maxY, scale;
+	private Rectangle zoomRect;
+	
+	public MandelView(int width, int height, Painter painter) {
+		super(width, height);
+		setZoomRect(null);
+		setLimit(256);
+		this.painter = painter;
+		setView(0, 0, Math.min(getWidth(), getHeight()) / 4);
+	}
 	
 	public MandelView(int width, int height) {
-		super(width, height);
-		setLimit(256);
-		painter = new ColorTable();
-		setView(0, 0, 150);
+		this(width, height, new ColorTable());
 	}
 	
 	public void redraw() {
@@ -25,22 +35,44 @@ public class MandelView extends GridView {
 				}
 			}
 		}
+		drawZoomRect();
 		repaint();
+	}
+	
+	public void drawZoomRect() {
+		if (zoomRect != null) {
+			Graphics g = getGraphics();
+			g.setXORMode(Color.WHITE);
+			g.drawRect(zoomRect.x, zoomRect.y, zoomRect.width, zoomRect.height);
+		}
+	}
+	
+	public void doZoom() {
+		double cx = getXcoord(zoomRect.getCenterX());
+		double cy = getYcoord(zoomRect.getCenterY());  
+		setView(cx, cy, scale * getWidth() / zoomRect.getWidth());
+		zoomRect = null;
 	}
 	
 	public Painter getPainter() {
 		return painter;
+	}
+	
+	public void setZoomRect(Rectangle rect) {
+		drawZoomRect();
+		zoomRect = rect;
+		drawZoomRect();
 	}
 
 	public void setPainter(Painter painter) {
 		this.painter = painter;
 	}
 
-	public double getXcoord(int x) {
+	public double getXcoord(double x) {
 		return minX + (maxX - minX) / getWidth() * x;
 	}
 	
-	public double getYcoord(int y) {
+	public double getYcoord(double y) {
 		return minY + (maxY - minY) / getHeight() * y;
 	}
 	
