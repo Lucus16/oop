@@ -5,6 +5,8 @@ package hw9;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,35 +18,25 @@ import org.junit.Test;
  *
  */
 public class PolynomialTest {
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	
+	private ArrayList<Polynomial> polyPool;
+	private static double[] xPool = new double[]{0,0.01,1,1.6,2,2.72,3,3.14,4};
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		polyPool = new ArrayList<Polynomial>();
+		polyPool.add(new Polynomial("0 0"));
+		polyPool.add(new Polynomial("0 0"));//TODO: add variety
+		polyPool.add(new Polynomial("0 0"));
+		polyPool.add(new Polynomial("0 0"));
+		polyPool.add(new Polynomial("0 0"));
+		polyPool.add(new Polynomial("0 0"));
+		polyPool.add(new Polynomial("0 0"));
 	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
+	
 	/**
 	 * Test method for {@link hw9.Polynomial#Polynomial()}.
 	 */
