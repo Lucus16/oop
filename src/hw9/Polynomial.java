@@ -40,17 +40,40 @@ public class Polynomial implements Iterable<Term> {
 		return this;
 	}
 	
+	public Polynomial add(Polynomial p) {
+		for (Term t : p.terms) {
+			add(t);
+		}
+		return this;
+	}
+	
 	public Polynomial sub(Term t) {
 		return add(new Term(t).neg());
+	}
+	
+	public Polynomial sub(Polynomial p) {
+		for (Term t : p.terms) {
+			sub(t);
+		}
+		return this;
 	}
 
 	public Polynomial mul(Term t) {
 		if (t.getCoef() == 0) {
-			terms = new ArrayList<Term>();
+			clear();
 		} else {
 			for (Term x : terms) {
 				x.mul(t);
 			}
+		}
+		return this;
+	}
+	
+	public Polynomial mul(Polynomial p) {
+		Polynomial op = new Polynomial(this);
+		clear();
+		for (Term t : p.terms) {
+			add(new Polynomial(op).mul(t));
 		}
 		return this;
 	}
@@ -73,12 +96,16 @@ public class Polynomial implements Iterable<Term> {
 	 * each individual term
 	 */
 	public Polynomial(String s) {
-		terms = new ArrayList<Term>();
+		clear();
 		Scanner scan = new Scanner(s);
 
 		for (Term t = Term.scanTerm(scan); t != null; t = Term.scanTerm(scan)) {
 			terms.add(t);
 		}
+	}
+	
+	public void clear() {
+		terms = new ArrayList<Term>();
 	}
 	
 	public double apply(double x) {
