@@ -44,6 +44,7 @@ public class Term implements Comparable<Term> {
 	}
 	
 	public Term div(Term t) {
+		assert(t.coef != 0);
 		exp -= t.exp;
 		coef /= t.coef;
 		return this;

@@ -79,12 +79,9 @@ public class Polynomial implements Iterable<Term> {
 	}
 
 	public Polynomial div(Term t) {
-		if (t.getCoef() == 0) {
-			terms = new ArrayList<Term>();
-		} else {
-			for (Term x : terms) {
-				x.div(t);
-			}
+		assert t.getCoef() != 0;
+		for (Term x : terms) {
+			x.div(t);
 		}
 		return this;
 	}
