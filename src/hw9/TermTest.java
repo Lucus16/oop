@@ -247,15 +247,19 @@ public class TermTest {
 				if(t.equals(u)){
 					assertTrue(t.compareTo(u) == 0);
 				}
-				if(t.compareTo(u) == 0)
-				{
-					assertTrue(t.equals(u));
-				}
 				if(t.getExp() < u.getExp()){
 					assertTrue(t.compareTo(u) < 0);
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Test method for {@link hw9.Term#equals(hw9.Term)}.
+	 */
+	@Test
+	public final void testEquals(){
+		
 	}
 
 	/**
@@ -263,6 +267,9 @@ public class TermTest {
 	 */
 	@Test
 	public final void testToString() {
+		for(Term t : termPool){
+			System.out.println(t);
+		}
 		//human readability not autotestable. Handtested OK.
 	}
 
