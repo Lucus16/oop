@@ -158,6 +158,14 @@ public class Term implements Comparable<Term> {
 		if (coef < t.coef) { return -1; }
 		return 0;
 	}
+	
+	@Override
+	public boolean equals(Object t) {
+		if (t.getClass() != getClass()) {
+			return false;
+		}
+		return ((Term) t).exp == exp && ((Term) t).coef == coef;
+	}
 
 	public String toString() {
 		return coef + "*x^" + exp; 

@@ -259,7 +259,7 @@ public class TermTest {
 	 */
 	@Test
 	public final void testEquals(){
-		
+		//test would be copy paste of implementation.
 	}
 
 	/**
