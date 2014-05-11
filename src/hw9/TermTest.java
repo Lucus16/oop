@@ -5,6 +5,9 @@ package hw9;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,13 +15,28 @@ import org.junit.Test;
  *
  */
 public class TermTest {
-
+	
+	ArrayList<Term> termPool;
+	
+	@Before
+	public final void setup(){
+		termPool = new ArrayList<Term>();
+		termPool.add(new Term(0,0));
+		termPool.add(new Term(0.001,10));
+		termPool.add(new Term(3.14,1));
+		termPool.add(new Term(0,4));
+		termPool.add(new Term(2.72,0));
+		termPool.add(new Term(7.5,21321));
+		termPool.add(new Term(-1, 3));
+		termPool.add(new Term(5,-2));
+	}
+	
 	/**
 	 * Test method for {@link hw9.Term#Term()}.
 	 */
 	@Test
 	public final void testTerm() {
-		fail("Not yet implemented"); // TODO
+		assertEquals("Term() != Term(0,0)",new Term(),new Term(0,0));
 	}
 
 	/**
@@ -26,7 +44,7 @@ public class TermTest {
 	 */
 	@Test
 	public final void testTermDoubleInt() {
-		fail("Not yet implemented"); // TODO
+		//tested indirectly in other tests.
 	}
 
 	/**
@@ -34,7 +52,9 @@ public class TermTest {
 	 */
 	@Test
 	public final void testTermTerm() {
-		fail("Not yet implemented"); // TODO
+		for (Term t : termPool){
+			assertEquals("Copied Term unequal to original",t,new Term(t));
+		}
 	}
 
 	/**
@@ -42,7 +62,12 @@ public class TermTest {
 	 */
 	@Test
 	public final void testApply() {
-		fail("Not yet implemented"); // TODO
+		for (Term t : termPool){
+			for (int i = 0; i<=4 ; ++i ){
+				assertEquals("Inaccurate evaluation on " + t.toString(),
+						t.getCoef()*Math.pow(i,t.getExp()),t.apply(i),0.001);
+			}
+		}
 	}
 
 	/**
@@ -50,7 +75,7 @@ public class TermTest {
 	 */
 	@Test
 	public final void testAdd() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	/**
