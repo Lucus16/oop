@@ -62,6 +62,14 @@ public class PolynomialTest {
 	}
 
 	/**
+	 * Test method for {@link hw9.Polynomial#Polynomial(java.lang.String)}.
+	 */
+	@Test
+	public final void testPolynomialString() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
 	 * Test method for {@link hw9.Polynomial#Polynomial(hw9.Polynomial)}.
 	 */
 	@Test
@@ -109,6 +117,7 @@ public class PolynomialTest {
 		fail("Not yet implemented"); // TODO
 	}
 
+
 	/**
 	 * Test method for {@link hw9.Polynomial#mul(hw9.Polynomial)}.
 	 */
@@ -124,15 +133,6 @@ public class PolynomialTest {
 	public final void testDiv() {
 		fail("Not yet implemented"); // TODO
 	}
-
-	/**
-	 * Test method for {@link hw9.Polynomial#Polynomial(java.lang.String)}.
-	 */
-	@Test
-	public final void testPolynomialString() {
-		fail("Not yet implemented"); // TODO
-	}
-
 	/**
 	 * Test method for {@link hw9.Polynomial#clear()}.
 	 */

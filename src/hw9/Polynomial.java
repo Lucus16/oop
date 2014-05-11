@@ -31,6 +31,20 @@ public class Polynomial implements Iterable<Term> {
 	}
 	
 	/**
+	 * A Constructor creating a polynomial from the argument string.
+	 * @param s a String representing a list of terms which is
+	 * converted to a scanner and passed to scanTerm for reading 
+	 * each individual term
+	 */
+	public Polynomial(String s) {
+		clear();
+		Scanner scan = new Scanner(s);
+		for (Term t = Term.scanTerm(scan); t != null; t = Term.scanTerm(scan)) {
+			add(t);
+		}
+	}
+	
+	/**
 	 * Copy constructor
 	 * @param p
 	 */
@@ -40,7 +54,7 @@ public class Polynomial implements Iterable<Term> {
 			terms.add(t);
 		}
 	}
-	
+		
 	/**
 	 * Add a term to the polynomial, keeping the terms list sorted
 	 * and removing terms that have coefficient zero
@@ -140,19 +154,7 @@ public class Polynomial implements Iterable<Term> {
 		return this;
 	}
 
-	/**
-	 * A Constructor creating a polynomial from the argument string.
-	 * @param s a String representing a list of terms which is
-	 * converted to a scanner and passed to scanTerm for reading 
-	 * each individual term
-	 */
-	public Polynomial(String s) {
-		clear();
-		Scanner scan = new Scanner(s);
-		for (Term t = Term.scanTerm(scan); t != null; t = Term.scanTerm(scan)) {
-			add(t);
-		}
-	}
+
 	
 	/**
 	 * Clear the polynomial, making it the zero polynomial
