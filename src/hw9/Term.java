@@ -49,6 +49,11 @@ public class Term implements Comparable<Term> {
 		return this;
 	}
 	
+	public Term neg() {
+		coef = -coef;
+		return this;
+	}
+	
 	public Term pow(int p) {
 		coef = Math.pow(coef, p);
 		exp *= p;

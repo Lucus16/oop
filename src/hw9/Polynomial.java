@@ -22,6 +22,49 @@ public class Polynomial implements Iterable<Term> {
 			terms.add(t);
 		}
 	}
+	
+	public Polynomial add(Term t) {
+		for (int i = 0; i < terms.size(); i++) {
+			if (terms.get(i).getExp() == t.getExp()) {
+				terms.get(i).add(t);
+				if (terms.get(i).getCoef() == 0) {
+					terms.remove(i);
+				}
+				return this;
+			} else if (terms.get(i).getExp() > t.getExp()) {
+				terms.add(i, t);
+				return this;
+			}
+		}
+		terms.add(t);
+		return this;
+	}
+	
+	public Polynomial sub(Term t) {
+		return add(new Term(t).neg());
+	}
+
+	public Polynomial mul(Term t) {
+		if (t.getCoef() == 0) {
+			terms = new ArrayList<Term>();
+		} else {
+			for (Term x : terms) {
+				x.mul(t);
+			}
+		}
+		return this;
+	}
+
+	public Polynomial div(Term t) {
+		if (t.getCoef() == 0) {
+			terms = new ArrayList<Term>();
+		} else {
+			for (Term x : terms) {
+				x.div(t);
+			}
+		}
+		return this;
+	}
 
 	/**
 	 * A Constructor creating a polynomial from the argument string.
@@ -38,7 +81,18 @@ public class Polynomial implements Iterable<Term> {
 		}
 	}
 	
+	public double apply(double x) {
+		double r = 0;
+		for (Term t : terms) {
+			r += t.apply(x);
+		}
+		return r;
+	}
+	
 	public String toString() {
+		if (terms.size() == 0) {
+			return "0";
+		}
 		StringBuilder sb = new StringBuilder();
 		for (Term t : terms) {
 			if (sb.length() != 0) {
