@@ -95,9 +95,8 @@ public class Polynomial implements Iterable<Term> {
 	public Polynomial(String s) {
 		clear();
 		Scanner scan = new Scanner(s);
-
 		for (Term t = Term.scanTerm(scan); t != null; t = Term.scanTerm(scan)) {
-			terms.add(t);
+			add(t);
 		}
 	}
 	
