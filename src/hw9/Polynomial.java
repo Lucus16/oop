@@ -4,18 +4,36 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * Polynomial class stores a polynomial with an arbitrary number of terms
+ * and defines arithmatic on them and polynomials with terms.
+ * Most methods return the class itself for easy method chaining.
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class Polynomial implements Iterable<Term> {
 	private ArrayList<Term> terms;
 	
+	/**
+	 * Zero constructor
+	 */
 	public Polynomial() {
 		terms = new ArrayList<Term>();
 	}
 	
+	/**
+	 * Single term constructor
+	 * @param t
+	 */
 	public Polynomial(Term t) {
 		terms = new ArrayList<Term>();
 		terms.add(t);
 	}
 	
+	/**
+	 * Copy constructor
+	 * @param p
+	 */
 	public Polynomial(Polynomial p) {
 		terms = new ArrayList<Term>();
 		for (Term t : p) {
@@ -23,6 +41,12 @@ public class Polynomial implements Iterable<Term> {
 		}
 	}
 	
+	/**
+	 * Add a term to the polynomial, keeping the terms list sorted
+	 * and removing terms that have coefficient zero
+	 * @param t
+	 * @return
+	 */
 	public Polynomial add(Term t) {
 		for (int i = 0; i < terms.size(); i++) {
 			if (terms.get(i).getExp() == t.getExp()) {
@@ -40,6 +64,11 @@ public class Polynomial implements Iterable<Term> {
 		return this;
 	}
 	
+	/**
+	 * Add another polynomial to this one
+	 * @param p
+	 * @return
+	 */
 	public Polynomial add(Polynomial p) {
 		for (Term t : p.terms) {
 			add(t);
@@ -47,10 +76,20 @@ public class Polynomial implements Iterable<Term> {
 		return this;
 	}
 	
+	/**
+	 * Subtract a term from the polynomial
+	 * @param t
+	 * @return
+	 */
 	public Polynomial sub(Term t) {
 		return add(new Term(t).neg());
 	}
 	
+	/**
+	 * Subtract another polynomial from this one
+	 * @param p
+	 * @return
+	 */
 	public Polynomial sub(Polynomial p) {
 		for (Term t : p.terms) {
 			sub(t);
@@ -58,6 +97,11 @@ public class Polynomial implements Iterable<Term> {
 		return this;
 	}
 
+	/**
+	 * Multiply the polynomial by a term
+	 * @param t
+	 * @return
+	 */
 	public Polynomial mul(Term t) {
 		if (t.getCoef() == 0) {
 			clear();
@@ -69,6 +113,11 @@ public class Polynomial implements Iterable<Term> {
 		return this;
 	}
 	
+	/**
+	 * Multiply this polynomial by another one
+	 * @param p
+	 * @return
+	 */
 	public Polynomial mul(Polynomial p) {
 		Polynomial op = new Polynomial(this);
 		clear();
@@ -77,7 +126,12 @@ public class Polynomial implements Iterable<Term> {
 		}
 		return this;
 	}
-
+	
+	/**
+	 * Divide this polynomial by a term
+	 * @param t
+	 * @return
+	 */
 	public Polynomial div(Term t) {
 		assert t.getCoef() != 0;
 		for (Term x : terms) {
@@ -100,10 +154,18 @@ public class Polynomial implements Iterable<Term> {
 		}
 	}
 	
+	/**
+	 * Clear the polynomial, making it the zero polynomial
+	 */
 	public void clear() {
 		terms = new ArrayList<Term>();
 	}
 	
+	/**
+	 * Apply value x to the polynomial
+	 * @param x
+	 * @return
+	 */
 	public double apply(double x) {
 		double r = 0;
 		for (Term t : terms) {
