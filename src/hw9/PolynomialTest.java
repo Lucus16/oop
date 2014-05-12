@@ -146,7 +146,10 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testClear() {
-		fail("Not yet implemented"); // TODO
+		for(Polynomial p : polyPool) {
+			p.clear(); //polyPool is unique per test, can safely mutate.
+			assertEquals(new Polynomial(), p);
+		}
 	}
 
 	/**
