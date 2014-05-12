@@ -74,7 +74,7 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testPolynomialString() {
-		fail("Not yet implemented"); // TODO
+		//tested implicitly in other tests and polyPool.
 	}
 
 	/**
@@ -82,6 +82,17 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testPolynomialPolynomial() {
+		for(Polynomial p : polyPool){
+			assertEquals(p,new Polynomial(p));
+		}
+	}
+	
+
+	/**
+	 * Test method for {@link hw9.Polynomial#equals(Object)}.
+	 */
+	@Test
+	public final void testEqualsObject() {
 		fail("Not yet implemented"); // TODO
 	}
 
