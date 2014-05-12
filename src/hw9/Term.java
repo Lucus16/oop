@@ -168,6 +168,6 @@ public class Term implements Comparable<Term> {
 	}
 
 	public String toString() {
-		return coef + "*x^" + exp; 
+		return (exp == 0 ? "" + coef : coef + " * x^" + exp); 
 	}
 }

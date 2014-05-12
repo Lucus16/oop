@@ -28,7 +28,7 @@ public class Polynomial implements Iterable<Term> {
 	 */
 	public Polynomial(Term t) {
 		terms = new ArrayList<Term>();
-		terms.add(t);
+		terms.add(new Term(t));
 	}
 	
 	/**
@@ -163,8 +163,6 @@ public class Polynomial implements Iterable<Term> {
 		}
 		return this;
 	}
-
-
 	
 	/**
 	 * Clear the polynomial, making it the zero polynomial

@@ -255,7 +255,8 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testIterator() {
-		//tested in testApply
+		//Default implementation, should work.
+		//Tested in testApply.
 	}
 
 }
