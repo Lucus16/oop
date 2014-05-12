@@ -29,12 +29,13 @@ public class PolynomialTest {
 	public void setUp() throws Exception {
 		polyPool = new ArrayList<Polynomial>();
 		polyPool.add(new Polynomial("0 0"));
-		polyPool.add(new Polynomial("0 0"));//TODO: add variety
-		polyPool.add(new Polynomial("0 0"));
-		polyPool.add(new Polynomial("0 0"));
-		polyPool.add(new Polynomial("0 0"));
-		polyPool.add(new Polynomial("0 0"));
-		polyPool.add(new Polynomial("0 0"));
+		polyPool.add(new Polynomial("1 2 2 0 1 0"));
+		polyPool.add(new Polynomial("1 2 -4 1 7 0"));
+		polyPool.add(new Polynomial("2 2 0 1 -18 0"));
+		polyPool.add(new Polynomial("5 3 -5 0"));
+		polyPool.add(new Polynomial("1 0"));
+		polyPool.add(new Polynomial("1 1 2.72 0"));
+		polyPool.add(new Polynomial("0.5 2 2.72 1 3.14 0"));
 	}
 	
 	/**
@@ -42,7 +43,7 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testPolynomial() {
-		fail("Not yet implemented"); // TODO
+		assertEquals(new Polynomial(),new Polynomial("0 0"));
 	}
 
 	/**
@@ -50,7 +51,10 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testPolynomialTerm() {
-		fail("Not yet implemented"); // TODO
+		assertEquals(new Polynomial(),new Polynomial(new Term()));
+		assertEquals(new Polynomial("0.5 2"),new Polynomial(new Term(0.5,2)));
+		assertEquals(new Polynomial("7.5 256"),new Polynomial(new Term(7.5,256)));
+		assertEquals(new Polynomial("2.72 0"),new Polynomial(new Term(2.72,0)));
 	}
 
 	/**
