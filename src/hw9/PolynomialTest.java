@@ -20,7 +20,8 @@ import org.junit.Test;
 public class PolynomialTest {
 	
 	private ArrayList<Polynomial> polyPool;
-	private static double[] xPool = new double[]{0,0.01,1,1.6,2,2.72,3,3.14,4};
+	private ArrayList<Term> termPool;
+	private static final double[] xPool = new double[]{0,0.01,1,1.6,2,2.72,3,3.14,4};
 
 	/**
 	 * @throws java.lang.Exception
@@ -36,6 +37,17 @@ public class PolynomialTest {
 		polyPool.add(new Polynomial("1 0"));
 		polyPool.add(new Polynomial("1 1 2.72 0"));
 		polyPool.add(new Polynomial("0.5 2 2.72 1 3.14 0"));
+		termPool = new ArrayList<Term>();
+		termPool.add(new Term(0, 0));
+		termPool.add(new Term(0.001, 10));
+		termPool.add(new Term(3.14, 1));
+		termPool.add(new Term(0, 4));
+		termPool.add(new Term(2.72, 0));
+		termPool.add(new Term(7.5, 256));
+		termPool.add(new Term(-1, 3));
+		termPool.add(new Term(5, -2));
+		termPool.add(new Term(3, 3));
+		termPool.add(new Term(325.57, 1));
 	}
 	
 	/**
@@ -43,7 +55,7 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testPolynomial() {
-		assertEquals(new Polynomial(),new Polynomial("0 0"));
+		assertEquals(new Polynomial(), new Polynomial("0 0"));
 	}
 
 	/**
@@ -90,7 +102,14 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testAddTerm() {
-		fail("Not yet implemented"); // TODO
+		for (Polynomial p : polyPool) {
+			for (Term t : termPool) {
+				for (double x : xPool) {
+					assertEquals(p.apply(x) + t.apply(x),
+							new Polynomial(p).add(t).apply(x), 0.001);
+				}
+			}
+		}
 	}
 
 	/**
@@ -98,7 +117,14 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testAddPolynomial() {
-		fail("Not yet implemented"); // TODO
+		for (Polynomial p : polyPool) {
+			for (Polynomial q : polyPool) {
+				for (double x : xPool) {
+					assertEquals(p.apply(x) + q.apply(x),
+							new Polynomial(p).add(q).apply(x), 0.001);
+				}
+			}
+		}
 	}
 
 	/**
@@ -106,7 +132,16 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testSubTerm() {
-		fail("Not yet implemented"); // TODO
+		for (Polynomial p : polyPool) {
+			for (Term t : termPool) {
+				for (double x : xPool) {
+					assertEquals(p.apply(x) - t.apply(x),
+							new Polynomial(p).sub(t).apply(x), 0.001);
+					assertEquals(new Polynomial(p).sub(t),
+							new Polynomial(p).add(new Term(t).neg()));
+				}
+			}
+		}
 	}
 
 	/**
@@ -114,7 +149,16 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testSubPolynomial() {
-		fail("Not yet implemented"); // TODO
+		for (Polynomial p : polyPool) {
+			for (Polynomial q : polyPool) {
+				for (double x : xPool) {
+					assertEquals(p.apply(x) - q.apply(x),
+							new Polynomial(p).sub(q).apply(x), 0.001);
+					assertEquals(new Polynomial(p).sub(q),
+							new Polynomial(p).add(new Polynomial(q).neg()));
+				}
+			}
+		}
 	}
 
 	/**
@@ -122,7 +166,14 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testMulTerm() {
-		fail("Not yet implemented"); // TODO
+		for (Polynomial p : polyPool) {
+			for (Term t : termPool) {
+				for (double x : xPool) {
+					assertEquals(p.apply(x) * t.apply(x),
+							new Polynomial(p).mul(t).apply(x), 0.001);
+				}
+			}
+		}
 	}
 
 
