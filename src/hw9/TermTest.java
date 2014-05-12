@@ -175,7 +175,8 @@ public class TermTest {
 	@Test
 	public final void testNeg() {
 		for (Term t : termPool){
-			assertEquals("-t should be (-1*x^0)*t",t.mul(new Term(-1,0)),t.neg());
+			assertEquals("-t should be (-1*x^0)*t", new Term(-1, 0).mul(t),
+					new Term(t).neg());
 		}
 	}
 

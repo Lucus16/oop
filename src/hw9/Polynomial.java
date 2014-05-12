@@ -60,13 +60,9 @@ public class Polynomial implements Iterable<Term> {
 			return false;
 		}
 		Polynomial p = (Polynomial) o;
-		for (Term t : terms){
-			if(!p.terms.contains(t)){
-				return false;
-			}
-		}
-		for (Term t : p.terms){
-			if(!terms.contains(t)){
+		if (terms.size() != p.terms.size()) { return false; }
+		for (int i = 0; i < terms.size(); i++) {
+			if (!terms.get(i).equals(p.terms.get(i))) {
 				return false;
 			}
 		}
