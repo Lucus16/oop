@@ -81,7 +81,8 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testEqualsObject() {
-		fail("Not yet implemented"); // TODO
+		assertEquals(new Polynomial("2 2 0 1 2.72 0"), new Polynomial ("2.72 0 2 2"));
+		assertEquals(new Polynomial("1 0 2 1 3 2"),new Polynomial("2 1 3 2 1 0"));
 	}
 
 	/**
