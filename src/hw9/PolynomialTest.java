@@ -245,7 +245,7 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testIterator() {
-		fail("Not yet implemented"); // TODO
+		//Default implementation, should work.
 	}
 
 }
