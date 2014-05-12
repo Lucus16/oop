@@ -225,8 +225,16 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testApply() {
-		//tested implicitly in add, sub, mul tests
-		//test would copy implementation
+		double accu;
+		for (Polynomial p : polyPool) {
+			for(double x : xPool) {
+			accu = 0;
+			for (Term t : p) {
+				accu += t.apply(x);
+			}
+			assertEquals(accu,p.apply(x),Math.max(0.001, accu/10000));
+			}
+		}
 	}
 
 	/**
@@ -245,7 +253,7 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testIterator() {
-		fail("Not yet implemented"); // TODO
+		//tested in testApply
 	}
 
 }
