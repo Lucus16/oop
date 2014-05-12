@@ -52,7 +52,7 @@ public class Polynomial implements Iterable<Term> {
 	public Polynomial(Polynomial p) {
 		terms = new ArrayList<Term>();
 		for (Term t : p) {
-			terms.add(t);
+			terms.add(new Term(t));
 		}
 	}
 	
@@ -61,13 +61,7 @@ public class Polynomial implements Iterable<Term> {
 			return false;
 		}
 		Polynomial p = (Polynomial) o;
-		if (terms.size() != p.terms.size()) { return false; }
-		for (int i = 0; i < terms.size(); i++) {
-			if (!terms.get(i).equals(p.terms.get(i))) {
-				return false;
-			}
-		}
-		return true; //no difference found.
+		return p.terms.equals(terms);
 	}
 	
 	/**
@@ -77,6 +71,7 @@ public class Polynomial implements Iterable<Term> {
 	 * @return
 	 */
 	public Polynomial add(Term t) {
+		if (t.getCoef() == 0) { return this; }
 		for (int i = 0; i < terms.size(); i++) {
 			if (terms.get(i).getExp() == t.getExp()) {
 				terms.get(i).add(t);
@@ -208,5 +203,12 @@ public class Polynomial implements Iterable<Term> {
 	@Override
 	public Iterator<Term> iterator() {
 		return terms.iterator();
+	}
+
+	public Polynomial neg() {
+		for (Term t : terms) {
+			t.neg();
+		}
+		return this;
 	}
 }
