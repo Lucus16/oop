@@ -54,7 +54,25 @@ public class Polynomial implements Iterable<Term> {
 			terms.add(t);
 		}
 	}
-		
+	
+	public boolean equals(Object o){
+		if (o.getClass() != getClass()){
+			return false;
+		}
+		Polynomial p = (Polynomial) o;
+		for (Term t : terms){
+			if(!p.terms.contains(t)){
+				return false;
+			}
+		}
+		for (Term t : p.terms){
+			if(!terms.contains(t)){
+				return false;
+			}
+		}
+		return true; //no difference found.
+	}
+	
 	/**
 	 * Add a term to the polynomial, keeping the terms list sorted
 	 * and removing terms that have coefficient zero
