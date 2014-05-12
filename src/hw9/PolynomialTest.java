@@ -7,10 +7,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -21,7 +18,7 @@ public class PolynomialTest {
 	
 	private ArrayList<Polynomial> polyPool;
 	private ArrayList<Term> termPool;
-	private static final double[] xPool = new double[]{0,0.01,1,1.6,2,2.72,3,3.14,4};
+	private static final double[] xPool = new double[] {0,0.01,1,1.6,2,2.72,3,3.14,4};
 
 	/**
 	 * @throws java.lang.Exception
@@ -63,10 +60,10 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testPolynomialTerm() {
-		assertEquals(new Polynomial(),new Polynomial(new Term()));
-		assertEquals(new Polynomial("0.5 2"),new Polynomial(new Term(0.5,2)));
-		assertEquals(new Polynomial("7.5 256"),new Polynomial(new Term(7.5,256)));
-		assertEquals(new Polynomial("2.72 0"),new Polynomial(new Term(2.72,0)));
+		assertEquals(new Polynomial(), new Polynomial(new Term()));
+		assertEquals(new Polynomial("0.5 2"), new Polynomial(new Term(0.5, 2)));
+		assertEquals(new Polynomial("7.5 256"), new Polynomial(new Term(7.5, 256)));
+		assertEquals(new Polynomial("2.72 0"), new Polynomial(new Term(2.72, 0)));
 	}
 
 	/**
@@ -170,7 +167,9 @@ public class PolynomialTest {
 			for (Term t : termPool) {
 				for (double x : xPool) {
 					assertEquals(p.apply(x) * t.apply(x),
-							new Polynomial(p).mul(t).apply(x), 0.001);
+							new Polynomial(p).mul(t).apply(x),
+							Math.max(0.001, Math.abs((p.apply(x) *
+									t.apply(x)) / 10000)));
 				}
 			}
 		}
@@ -182,7 +181,16 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testMulPolynomial() {
-		fail("Not yet implemented"); // TODO
+		for (Polynomial p : polyPool) {
+			for (Polynomial q : polyPool) {
+				for (double x : xPool) {
+					assertEquals(p.apply(x) * q.apply(x),
+							new Polynomial(p).mul(q).apply(x),
+							Math.max(0.001, Math.abs((p.apply(x) *
+									q.apply(x)) / 10000)));
+				}
+			}
+		}
 	}
 
 	/**
@@ -190,7 +198,16 @@ public class PolynomialTest {
 	 */
 	@Test
 	public final void testDiv() {
-		fail("Not yet implemented"); // TODO
+		for (Polynomial p : polyPool) {
+			for (Term t : termPool) {
+				if (t.getCoef() == 0) { continue; }
+				for (double x : xPool) {
+					assertEquals(p.apply(x) / t.apply(x),
+							new Polynomial(p).div(t).apply(x),
+							0.001);
+				}
+			}
+		}
 	}
 	/**
 	 * Test method for {@link hw9.Polynomial#clear()}.

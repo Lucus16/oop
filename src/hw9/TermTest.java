@@ -17,7 +17,7 @@ import org.junit.Test;
 public class TermTest {
 	
 	private ArrayList<Term> termPool;
-	private static double[] xPool = new double[] {0,0.01,1,1.6,2,2.72,3,3.14,4};
+	private static final double[] xPool = new double[] {0,0.01,1,1.6,2,2.72,3,3.14,4};
 	
 	@Before
 	public final void setup() {
