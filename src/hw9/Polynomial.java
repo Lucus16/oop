@@ -8,6 +8,7 @@ import java.util.Scanner;
  * Polynomial class stores a polynomial with an arbitrary number of terms
  * and defines arithmatic on them and polynomials with terms.
  * Most methods return the class itself for easy method chaining.
+ * The terms are internally kept in sorted order
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747
  */

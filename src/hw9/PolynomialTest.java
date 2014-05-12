@@ -20,7 +20,8 @@ import org.junit.Test;
 public class PolynomialTest {
 	
 	private ArrayList<Polynomial> polyPool;
-	private static double[] xPool = new double[]{0,0.01,1,1.6,2,2.72,3,3.14,4};
+	private ArrayList<Term> termPool;
+	private static final double[] xPool = new double[]{0,0.01,1,1.6,2,2.72,3,3.14,4};
 
 	/**
 	 * @throws java.lang.Exception
@@ -36,6 +37,17 @@ public class PolynomialTest {
 		polyPool.add(new Polynomial("1 0"));
 		polyPool.add(new Polynomial("1 1 2.72 0"));
 		polyPool.add(new Polynomial("0.5 2 2.72 1 3.14 0"));
+		termPool = new ArrayList<Term>();
+		termPool.add(new Term(0, 0));
+		termPool.add(new Term(0.001, 10));
+		termPool.add(new Term(3.14, 1));
+		termPool.add(new Term(0, 4));
+		termPool.add(new Term(2.72, 0));
+		termPool.add(new Term(7.5, 256));
+		termPool.add(new Term(-1, 3));
+		termPool.add(new Term(5, -2));
+		termPool.add(new Term(3, 3));
+		termPool.add(new Term(325.57, 1));
 	}
 	
 	/**
