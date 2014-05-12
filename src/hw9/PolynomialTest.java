@@ -235,6 +235,8 @@ public class PolynomialTest {
 			assertEquals(accu,p.apply(x),Math.max(0.001, accu/10000));
 			}
 		}
+		//and make sure those aren't all 0:
+		assertEquals(4+(-4 * 2)+7,new Polynomial("1 2 -4 1 7 0").apply(2),0.001);
 	}
 
 	/**
