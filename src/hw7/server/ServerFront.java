@@ -29,7 +29,7 @@ public class ServerFront {
 	 * @param subject
 	 * @param content
 	 */
-	public void sendMail(String address, String subject, String content) {
+	public static void sendMail(String address, String subject, String content) {
 		String stamp = new Timestamp(new Date().getTime()).toString().substring(0, 19);
 		String title = address + "-" + subject + "-" + stamp;
 		title = title.replace("@", "-at-");
@@ -54,7 +54,7 @@ public class ServerFront {
 	public int addUser(String username, String email) {
 		String password = engine.addUser(username, email);
 		sendMail(email, "Your login details", "Your login details are:\n\nUsername: " + username +
-				"\nPassword: " + password);
+				"\nPassword: " + password + "\n");
 		return 0;
 	}
 	
@@ -67,8 +67,10 @@ public class ServerFront {
 		if (user == null) {
 			return 2;
 		}
-		return engine.login(user, hash);
+		int r = engine.login(user, hash);
+		if (r == 0) {
+			this.user = user;
+		}
+		return r;
 	}
-	
-	
 }

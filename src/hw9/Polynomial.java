@@ -72,6 +72,7 @@ public class Polynomial implements Iterable<Term> {
 	 */
 	public Polynomial add(Term t) {
 		if (t.getCoef() == 0) { return this; }
+		t = new Term(t);
 		for (int i = 0; i < terms.size(); i++) {
 			if (terms.get(i).getExp() == t.getExp()) {
 				terms.get(i).add(t);

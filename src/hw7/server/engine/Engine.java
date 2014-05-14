@@ -20,9 +20,15 @@ public class Engine {
 			("abcdefghijklmnopqrstuvwxyz"+
 					"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").toCharArray();
 	private static final int passLength = 8;
+	
+	public Engine() {
+		users = new HashMap<String, User>();
+	}
 
 	public byte[] getSalt(String username) {
-		return users.get(username).getSalt();
+		User user = users.get(username);
+		if (user == null) { return null; }
+		return user.getSalt();
 	}
 
 	public int login(User user, byte[] hash) {
@@ -42,7 +48,8 @@ public class Engine {
 		for (int i : new Range(passLength)) {
 			password[i] = passChars[gen.nextInt(passChars.length)];
 		}
-		users.put(username, new User(username, email, password.toString()));
-		return password.toString();
+		String passString = new String(password);
+		users.put(username, new User(username, email, passString));
+		return passString;
 	}
 }
