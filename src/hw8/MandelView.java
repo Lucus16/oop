@@ -16,7 +16,7 @@ public class MandelView extends GridView implements PixelManager {
 	private Painter painter;
 	private double minX, minY, maxX, maxY, scale;
 	private Rectangle zoomRect;
-	private RedrawListener redrawListener;
+	private ViewChangeListener viewChangeListener;
 	private int viewVersion;
 	private MandelPixel[][] pixels;
 	private MandelWorker[] workers;
@@ -30,7 +30,9 @@ public class MandelView extends GridView implements PixelManager {
 	public MandelView(int width, int height, Painter painter) {
 		super(width, height);
 		this.painter = painter;
-		setBackground(Color.BLACK);
+		setZoomRect(null);
+		viewVersion = 0;
+		resetView();
 		pixels = new MandelPixel[width][height];
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -43,9 +45,6 @@ public class MandelView extends GridView implements PixelManager {
 					this.getHeight() * (i + 1) / NUM_WORKERS, this);
 			workers[i].start();
 		}
-		setZoomRect(null);
-		viewVersion = 0;
-		resetView();
 	}
 	
 	/**
@@ -68,17 +67,14 @@ public class MandelView extends GridView implements PixelManager {
 	 * Add a listener to update other stuff when the screen is redrawn
 	 * @param redrawListener
 	 */
-	public void addRedrawListener(RedrawListener redrawListener) {
-		this.redrawListener = redrawListener;
+	public void addRedrawListener(ViewChangeListener redrawListener) {
+		this.viewChangeListener = redrawListener;
 	}
 	
 	/**
 	 * Redraw the screen
 	 */
 	public void redraw() {
-		if (redrawListener != null) {
-			redrawListener.redrawn((minX + maxX) / 2, (minY + maxY) / 2, scale);
-		}
 		drawZoomRect();
 		repaint();
 	}
@@ -163,6 +159,10 @@ public class MandelView extends GridView implements PixelManager {
 	 * @param scale
 	 */
 	public void setView(double centerX, double centerY, double scale) {
+		if (viewChangeListener != null) {
+			viewChangeListener.viewChanged((minX + maxX) / 2, (minY + maxY) / 2, scale);
+		}
+		clear();
 		this.scale = scale;
 		minX = centerX - getWidth() / 2 / scale;
 		minY = centerY - getHeight() / 2 / scale;

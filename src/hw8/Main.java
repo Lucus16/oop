@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747
  */
-public class Main implements RedrawListener {
+public class Main implements ViewChangeListener {
 	/**
 	 * Handler for the apply button
 	 */
@@ -142,7 +142,7 @@ public class Main implements RedrawListener {
 	}
 
 	@Override
-	public void redrawn(double x, double y, double scale) {
+	public void viewChanged(double x, double y, double scale) {
 		xField.setValue(x);
 		yField.setValue(y);
 		scaleField.setValue(scale);

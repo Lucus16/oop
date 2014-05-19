@@ -14,14 +14,20 @@ public class MandelWorker extends Thread {
 	
 	@Override
 	public void run() {
-		for (int y = minY; y < maxY; y++) {
-			for (int x = 0; x < pixels.length; x++) {
-				int mandelNumber = pixels[x][y].getMandelNumber();
-				if (mandelNumber >= 0) {
-					mv.setPixel(x, y, mv.getPainter().getColor(mandelNumber));
+		while (true) {
+			for (int y = minY; y < maxY; y++) {
+				for (int x = 0; x < pixels.length; x++) {
+					int mandelNumber = pixels[x][y].getMandelNumber();
+					if (mandelNumber >= 0) {
+						mv.setPixel(x, y, mv.getPainter().getColor(mandelNumber));
+					}
 				}
 			}
+			mv.redraw();
+			try {
+				sleep(20);
+			} catch (InterruptedException e) {
+			}
 		}
-		mv.redraw();
 	}
 }

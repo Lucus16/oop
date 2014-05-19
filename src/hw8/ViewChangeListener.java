@@ -6,7 +6,7 @@ package hw8;
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747
  */
-public interface RedrawListener {
+public interface ViewChangeListener {
 	/**
 	 * Called when the mandel view is redrawn.
 	 * @param x
@@ -14,5 +14,5 @@ public interface RedrawListener {
 	 * @param scale
 	 * @param depth
 	 */
-	void redrawn(double x, double y, double scale);
+	void viewChanged(double x, double y, double scale);
 }

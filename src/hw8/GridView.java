@@ -1,5 +1,6 @@
 package hw8;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -35,6 +36,12 @@ public class GridView extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(gridImage, 0, 0, null);
+	}
+	
+	public void clear() {
+		Graphics g = gridImage.getGraphics();
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, gridWidth, gridHeight);
 	}
 	
 	/**

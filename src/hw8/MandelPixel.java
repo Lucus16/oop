@@ -26,7 +26,7 @@ public class MandelPixel extends Mandelbrot {
 		if (currentViewVersion != pm.getViewVersion()) {
 			reset();
 		}
-		if (currentX * currentX + currentY * currentY <= 4) {
+		if (currentX * currentX + currentY * currentY > 4) {
 			return mandelNumber;
 		}
 		double newX = currentX * currentX - currentY * currentY + originalX;
