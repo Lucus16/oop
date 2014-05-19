@@ -14,5 +14,5 @@ public interface RedrawListener {
 	 * @param scale
 	 * @param depth
 	 */
-	void redrawn(double x, double y, double scale, int depth);
+	void redrawn(double x, double y, double scale);
 }

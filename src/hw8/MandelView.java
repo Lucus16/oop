@@ -10,13 +10,14 @@ import java.awt.Rectangle;
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747
  */
-public class MandelView extends GridView {
+public class MandelView extends GridView implements PixelManager {
 	private static final long serialVersionUID = -6339535732137830801L;
-	private int limit;
 	private Painter painter;
 	private double minX, minY, maxX, maxY, scale;
 	private Rectangle zoomRect;
 	private RedrawListener redrawListener;
+	private int viewVersion;
+	private MandelPixel[][] pixels;
 	
 	/**
 	 * Initialize the mandelview
@@ -27,8 +28,15 @@ public class MandelView extends GridView {
 	public MandelView(int width, int height, Painter painter) {
 		super(width, height);
 		this.painter = painter;
+		setBackground(Color.BLACK);
+		pixels = new MandelPixel[width][height];
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				pixels[x][y] = new MandelPixel(x, y, this);
+			}
+		}
 		setZoomRect(null);
-		setLimit(256);
+		viewVersion = 0;
 		resetView();
 	}
 	
@@ -61,7 +69,7 @@ public class MandelView extends GridView {
 	 */
 	public void redraw() {
 		if (redrawListener != null) {
-			redrawListener.redrawn((minX + maxX) / 2, (minY + maxY) / 2, scale, limit);
+			redrawListener.redrawn((minX + maxX) / 2, (minY + maxY) / 2, scale);
 		}
 		for (int x = 0; x < getWidth(); x++) {
 			for (int y = 0; y < getHeight(); y++) {
@@ -130,8 +138,12 @@ public class MandelView extends GridView {
 	 * @param x
 	 * @return
 	 */
-	public double getXcoord(double x) {
-		return minX + (maxX - minX) / getWidth() * x;
+	public double getXcoord(double screenX) {
+		return minX + (maxX - minX) / getWidth() * screenX;
+	}
+	
+	public double getXcoord(int screenX) {
+		return getXcoord((double)screenX);
 	}
 
 	/**
@@ -139,8 +151,12 @@ public class MandelView extends GridView {
 	 * @param y
 	 * @return
 	 */
-	public double getYcoord(double y) {
-		return minY + (maxY - minY) / getHeight() * y;
+	public double getYcoord(double screenY) {
+		return minY + (maxY - minY) / getHeight() * screenY;
+	}
+
+	public double getYcoord(int screenY) {
+		return getYcoord((double)screenY);
 	}
 	
 	/**
@@ -155,23 +171,8 @@ public class MandelView extends GridView {
 		minY = centerY - getHeight() / 2 / scale;
 		maxX = centerX + getWidth() / 2 / scale;
 		maxY = centerY + getHeight() / 2 / scale;
+		viewVersion += 1;
 		redraw();
-	}
-
-	/**
-	 * Get the number of steps the mandelbrot calculation will go at most
-	 * @return
-	 */
-	public int getLimit() {
-		return limit;
-	}
-
-	/**
-	 * Set the number of steps the mandelbrot calculation will go at most
-	 * @param limit
-	 */
-	public void setLimit(int limit) {
-		this.limit = limit;
 	}
 
 	/**
@@ -180,5 +181,10 @@ public class MandelView extends GridView {
 	 */
 	public double getScale() {
 		return scale;
+	}
+
+	@Override
+	public int getViewVersion() {
+		return viewVersion;
 	}
 }
