@@ -12,12 +12,14 @@ import java.awt.Rectangle;
  */
 public class MandelView extends GridView implements PixelManager {
 	private static final long serialVersionUID = -6339535732137830801L;
+	private static final int NUM_WORKERS = 8;
 	private Painter painter;
 	private double minX, minY, maxX, maxY, scale;
 	private Rectangle zoomRect;
 	private RedrawListener redrawListener;
 	private int viewVersion;
 	private MandelPixel[][] pixels;
+	private MandelWorker[] workers;
 	
 	/**
 	 * Initialize the mandelview
@@ -34,6 +36,12 @@ public class MandelView extends GridView implements PixelManager {
 			for (int y = 0; y < height; y++) {
 				pixels[x][y] = new MandelPixel(x, y, this);
 			}
+		}
+		workers = new MandelWorker[NUM_WORKERS];
+		for (int i = 0; i < workers.length; i++) {
+			workers[i] = new MandelWorker(this.getHeight() * i / NUM_WORKERS,
+					this.getHeight() * (i + 1) / NUM_WORKERS, this);
+			workers[i].start();
 		}
 		setZoomRect(null);
 		viewVersion = 0;
@@ -65,22 +73,11 @@ public class MandelView extends GridView implements PixelManager {
 	}
 	
 	/**
-	 * Redraw the screen pixel by pixel
+	 * Redraw the screen
 	 */
 	public void redraw() {
 		if (redrawListener != null) {
 			redrawListener.redrawn((minX + maxX) / 2, (minY + maxY) / 2, scale);
-		}
-		for (int x = 0; x < getWidth(); x++) {
-			for (int y = 0; y < getHeight(); y++) {
-				int mandelNum = Mandelbrot.mandelnumber(getXcoord(x),
-						getYcoord(y), limit);
-				if (mandelNum == -1) {
-					setPixel(x, y, Painter.BLACK);
-				} else {
-					setPixel(x, y, painter.getColor(mandelNum));
-				}
-			}
 		}
 		drawZoomRect();
 		repaint();
@@ -186,5 +183,9 @@ public class MandelView extends GridView implements PixelManager {
 	@Override
 	public int getViewVersion() {
 		return viewVersion;
+	}
+
+	public MandelPixel[][] getPixels() {
+		return pixels;
 	}
 }

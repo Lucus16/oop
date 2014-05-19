@@ -22,7 +22,7 @@ public class Main implements RedrawListener {
 	 * Handler for the apply button
 	 */
 	public class GoButtonHandler implements ActionListener {
-		private JFormattedTextField xSource, ySource, scaleSource, depthSource;
+		private JFormattedTextField xSource, ySource, scaleSource;
 		private MandelView model;
 		
 		/**
@@ -137,7 +137,7 @@ public class Main implements RedrawListener {
 	 * Start the mandelbrot viewer by creating a main
 	 * @param args
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		new Main();
 	}
 
