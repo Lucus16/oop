@@ -34,9 +34,6 @@ public class MandelPixel extends Mandelbrot {
 		currentX = newX;
 		currentY = newY;
 		mandelNumber += 1;
-//		if (currentX * currentX + currentY * currentY <= 4) {
-//			return mandelNumber;
-//		}
 		return -1;
 	}
 }

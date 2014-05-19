@@ -77,8 +77,8 @@ public class MandelView extends GridView implements PixelManager {
 	 * Redraw the screen
 	 */
 	public void redraw() {
-		drawZoomRect();
 		repaint();
+		drawZoomRect();
 	}
 	
 	/**

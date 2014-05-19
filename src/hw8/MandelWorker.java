@@ -25,7 +25,7 @@ public class MandelWorker extends Thread {
 			}
 			mv.redraw();
 			try {
-				sleep(20);
+				sleep(50);
 			} catch (InterruptedException e) {
 			}
 		}
