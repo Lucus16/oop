@@ -1,5 +1,11 @@
 package hw8;
 
+/**
+ * PixelManager is the interface a MandelPixel needs to be able to get its new
+ * coordinates when the view has changed.
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public interface PixelManager {
 	/**
 	 * Get the mandelbrot X coordinate from the screen X coordinate 

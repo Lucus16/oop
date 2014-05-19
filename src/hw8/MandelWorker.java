@@ -1,10 +1,23 @@
 package hw8;
 
+/**
+ * Worker thread that continuously iterates over all the pixels in its domain
+ * and redraws them, each time with a slightly higher limit
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
 public class MandelWorker extends Thread {
 	public int minY, maxY;
 	public MandelPixel[][] pixels;
 	public MandelView mv;
 	
+	/**
+	 * Create a new MandelWorker that works from minY to maxY and redraws on
+	 * MandelView mv.
+	 * @param minY
+	 * @param maxY
+	 * @param mv
+	 */
 	public MandelWorker(int minY, int maxY, MandelView mv) {
 		this.minY = minY;
 		this.maxY = maxY;

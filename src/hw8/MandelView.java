@@ -136,7 +136,12 @@ public class MandelView extends GridView implements PixelManager {
 	public double getXcoord(double screenX) {
 		return minX + (maxX - minX) / getWidth() * screenX;
 	}
-	
+
+	/**
+	 * Get a mandelbrot X coordinate from a screen X coordinate
+	 * @param x
+	 * @return
+	 */
 	public double getXcoord(int screenX) {
 		return getXcoord((double)screenX);
 	}
@@ -150,6 +155,11 @@ public class MandelView extends GridView implements PixelManager {
 		return minY + (maxY - minY) / getHeight() * screenY;
 	}
 
+	/**
+	 * Get a mandelbrot Y coordinate from a screen Y coordinate
+	 * @param y
+	 * @return
+	 */
 	public double getYcoord(int screenY) {
 		return getYcoord((double)screenY);
 	}
@@ -186,7 +196,11 @@ public class MandelView extends GridView implements PixelManager {
 	public int getViewVersion() {
 		return viewVersion;
 	}
-
+	
+	/**
+	 * Get the mandel pixels
+	 * @return
+	 */
 	public MandelPixel[][] getPixels() {
 		return pixels;
 	}
