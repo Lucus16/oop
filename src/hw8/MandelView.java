@@ -1,5 +1,7 @@
 package hw8;
 
+import hw8.painters.ColorTable;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -162,13 +164,13 @@ public class MandelView extends GridView implements PixelManager {
 		if (viewChangeListener != null) {
 			viewChangeListener.viewChanged((minX + maxX) / 2, (minY + maxY) / 2, scale);
 		}
-		clear();
 		this.scale = scale;
 		minX = centerX - getWidth() / 2 / scale;
 		minY = centerY - getHeight() / 2 / scale;
 		maxX = centerX + getWidth() / 2 / scale;
 		maxY = centerY + getHeight() / 2 / scale;
 		viewVersion += 1;
+		clear();
 		redraw();
 	}
 
