@@ -112,7 +112,25 @@ public class Car {
 	}
 
 	public boolean checkCollide(Car c) {
-		// TODO Auto-generated method stub
-		return false;
+		if(c.direction != direction){
+			return false;
+		}
+		Car first, second; //lock ordering;
+		if (c.number < number){
+			first = c;
+			second = this;
+		}
+		else{
+			first = this;
+			second = c;
+		}
+		synchronized (first){synchronized (second){
+			if(c.location > location && (location + speed) % RoadView.WINDOWSIZE > c.location - CARLENGTH - MINCARSPACE){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}}//release second, first.
 	}
 }

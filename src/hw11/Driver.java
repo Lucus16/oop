@@ -4,6 +4,7 @@ public class Driver implements Runnable {
 	private Car car;
 	private Controller timer;
 	private Model model;
+	private Crossing crossing;
 	
 	public Driver (Car car, Controller controller, Model model){
 		if (!car.drive()){
