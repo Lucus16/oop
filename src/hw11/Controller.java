@@ -51,6 +51,7 @@ public class Controller
     private final Model model;              // the model
     private final Random random;            // a random generator
     private boolean run = true;             // car can run in simulation
+    private WaitCounter patience;
 
     /**
      * The constructor of the controller
@@ -59,7 +60,7 @@ public class Controller
     public Controller(Model model) {
         this.model  = model;
         random      = new Random();
-        WaitCounter patience    = new WaitCounter(Model.NUMBEROFCARS);
+        patience    = new WaitCounter(Model.NUMBEROFCARS);
     }
 
     /**
@@ -125,7 +126,6 @@ public class Controller
     }
 
 	public synchronized void checkIn() {
-		// TODO Auto-generated method stub
-		
+		patience.lower();
 	}
 }

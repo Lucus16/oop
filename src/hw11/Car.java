@@ -51,7 +51,7 @@ public class Car {
 	/**
 	 * move this car one step
 	 */
-	public void step() {
+	public synchronized void step() {
 		location = (location + speed) % RoadView.WINDOWSIZE;
 	}
 
@@ -109,5 +109,10 @@ public class Car {
 		boolean tmp = nodriver;
 		nodriver = false;
 		return tmp;
+	}
+
+	public boolean checkCollide(Car c) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
