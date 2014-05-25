@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package OO14route66;
+package hw11;
 
 /**
  * OO1route66 initial class

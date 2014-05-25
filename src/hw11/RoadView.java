@@ -1,4 +1,4 @@
-package OO14route66;
+package hw11;
 
 import java.awt.Color;
 import java.awt.Graphics;

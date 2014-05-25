@@ -1,4 +1,4 @@
-package OO14route66;
+package hw11;
 
 import java.util.Random;
 
@@ -10,6 +10,43 @@ import java.util.Random;
  */
 public class Controller
 {
+	/**
+	 * Used to provide something for the Controller to wait() on while waiting
+	 * for all drivers to attempt to take a step.
+	 * 
+	 * @author Sal Wolffs (s4064542)
+	 * @author Lars Jellema (s4388747)
+	 *
+	 */
+	private class WaitCounter{
+		private final int total;
+		private int wait;
+		
+		public WaitCounter(int amt){
+			if(amt <= 0){
+				throw new IllegalArgumentException(
+						"Cannot count non-positive amount of object to be"
+						+ " waited on.");
+			}
+			total = amt;
+			wait = 0;
+		}
+		
+		public void reset(){
+			wait = total;
+		}
+		
+		public synchronized void lower(){
+			wait -= 1;
+			if(wait < 0){
+				System.err.println("Waiting lowered below 0!");
+			}
+			if(wait <= 0){
+				notifyAll();
+			}
+		}
+	}
+	
     private int delay = 200;                // average sleep time
     private final Model model;              // the model
     private final Random random;            // a random generator
@@ -22,6 +59,7 @@ public class Controller
     public Controller(Model model) {
         this.model  = model;
         random      = new Random();
+        WaitCounter patience    = new WaitCounter(Model.NUMBEROFCARS);
     }
 
     /**
@@ -85,4 +123,9 @@ public class Controller
     public void setDelay(int d) {
         delay = Math.max(50, Math.min (2000, d));
     }
+
+	public synchronized void checkIn() {
+		// TODO Auto-generated method stub
+		
+	}
 }
