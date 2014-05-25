@@ -1,5 +1,7 @@
 package hw8;
 
+import hw8.painters.ColorTable;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -75,8 +77,8 @@ public class MandelView extends GridView implements PixelManager {
 	 * Redraw the screen
 	 */
 	public void redraw() {
-		drawZoomRect();
 		repaint();
+		drawZoomRect();
 	}
 	
 	/**
@@ -134,7 +136,12 @@ public class MandelView extends GridView implements PixelManager {
 	public double getXcoord(double screenX) {
 		return minX + (maxX - minX) / getWidth() * screenX;
 	}
-	
+
+	/**
+	 * Get a mandelbrot X coordinate from a screen X coordinate
+	 * @param x
+	 * @return
+	 */
 	public double getXcoord(int screenX) {
 		return getXcoord((double)screenX);
 	}
@@ -148,6 +155,11 @@ public class MandelView extends GridView implements PixelManager {
 		return minY + (maxY - minY) / getHeight() * screenY;
 	}
 
+	/**
+	 * Get a mandelbrot Y coordinate from a screen Y coordinate
+	 * @param y
+	 * @return
+	 */
 	public double getYcoord(int screenY) {
 		return getYcoord((double)screenY);
 	}
@@ -162,13 +174,13 @@ public class MandelView extends GridView implements PixelManager {
 		if (viewChangeListener != null) {
 			viewChangeListener.viewChanged((minX + maxX) / 2, (minY + maxY) / 2, scale);
 		}
-		clear();
 		this.scale = scale;
 		minX = centerX - getWidth() / 2 / scale;
 		minY = centerY - getHeight() / 2 / scale;
 		maxX = centerX + getWidth() / 2 / scale;
 		maxY = centerY + getHeight() / 2 / scale;
 		viewVersion += 1;
+		clear();
 		redraw();
 	}
 
@@ -184,7 +196,11 @@ public class MandelView extends GridView implements PixelManager {
 	public int getViewVersion() {
 		return viewVersion;
 	}
-
+	
+	/**
+	 * Get the mandel pixels
+	 * @return
+	 */
 	public MandelPixel[][] getPixels() {
 		return pixels;
 	}

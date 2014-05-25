@@ -1,7 +1,8 @@
 package hw8;
 
 /**
- * A redraw listener is used by mandel view to indicate it has redrawn
+ * A view change listener is used by mandel view to indicate its
+ * view has changed.
  * Other things can use this to update at the same time
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747

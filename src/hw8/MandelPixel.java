@@ -1,6 +1,12 @@
 package hw8;
 
-public class MandelPixel extends Mandelbrot {
+/**
+ * MandelPixel keeps track of one single pixel and calculates with more and
+ * more depth each time it is polled.
+ * @author Sal Wolffs s4064542
+ * @author Lars Jellema s4388747
+ */
+public class MandelPixel {
 	private PixelManager pm;
 	private int screenX, screenY;
 	private double originalX, originalY;
@@ -8,6 +14,12 @@ public class MandelPixel extends Mandelbrot {
 	private int mandelNumber;
 	private int currentViewVersion;
 	
+	/**
+	 * Create a pixel for coordinates screenX, screenY, with pixel manager pm
+	 * @param screenX
+	 * @param screenY
+	 * @param pm
+	 */
 	public MandelPixel(int screenX, int screenY, PixelManager pm) {
 		this.screenX = screenX;
 		this.screenY = screenY;
@@ -15,6 +27,9 @@ public class MandelPixel extends Mandelbrot {
 		reset();
 	}
 	
+	/**
+	 * Reset the pixel, starting calculation again at 0
+	 */
 	public void reset() {
 		originalX = currentX = pm.getXcoord(screenX);
 		originalY = currentY = pm.getYcoord(screenY);
@@ -22,6 +37,11 @@ public class MandelPixel extends Mandelbrot {
 		currentViewVersion = pm.getViewVersion();
 	}
 	
+	/**
+	 * Increase the depth by one and get the mandelnumber, or -1 if the
+	 * mandelnumber has not been reached yet
+	 * @return
+	 */
 	public int getMandelNumber() {
 		if (currentViewVersion != pm.getViewVersion()) {
 			reset();
@@ -34,9 +54,6 @@ public class MandelPixel extends Mandelbrot {
 		currentX = newX;
 		currentY = newY;
 		mandelNumber += 1;
-//		if (currentX * currentX + currentY * currentY <= 4) {
-//			return mandelNumber;
-//		}
 		return -1;
 	}
 }

@@ -1,4 +1,6 @@
-package hw8;
+package hw8.painters;
+
+import hw8.Painter;
 
 /**
  * A Painter that colors steps with a high contrast between steps

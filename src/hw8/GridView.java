@@ -38,6 +38,9 @@ public class GridView extends JPanel {
 		g.drawImage(gridImage, 0, 0, null);
 	}
 	
+	/**
+	 * Clear the grid view by painting it entirely black
+	 */
 	public void clear() {
 		Graphics g = gridImage.getGraphics();
 		g.setColor(Color.BLACK);
