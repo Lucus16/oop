@@ -53,6 +53,7 @@ public class Car {
 	 */
 	public synchronized void step() {
 		location = (location + speed) % RoadView.WINDOWSIZE;
+		notifyAll();
 	}
 
 	/**
@@ -125,7 +126,9 @@ public class Car {
 			second = c;
 		}
 		synchronized (first){synchronized (second){
-			if(c.location > location && (location + speed) % RoadView.WINDOWSIZE > c.location - CARLENGTH - MINCARSPACE){
+			if(c.location > location && 
+					(location + speed) % RoadView.WINDOWSIZE > 
+					c.location - CARLENGTH - MINCARSPACE){
 				return true;
 			}
 			else{

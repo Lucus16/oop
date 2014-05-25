@@ -23,38 +23,49 @@ public class Driver implements Runnable {
 			timer.checkIn();
 			try {
 				timer.wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (InterruptedException e) {e.printStackTrace();}
 			}
-			}
-			synchronized (model){
-			if(canMove()){ // atomic: check legality and commit.
-				car.step(); 
-			}
+			// NOTE: Only safe if the only thing any other thread can do
+			// to make this less safe is taking the crossing.
+			if(checkCars()){ 
+				if(Crossing.unsafe(car)){
+					synchronized(crossing){
+					claimCrossing();
+					car.step();
+					}
+				}
+				else{
+					car.step();
+				}
 			}
 		}
-	}
-
-	private boolean canMove() {
-		boolean accu = true;
-		accu = accu && checkCrossing();
-		accu = accu && checkCars();
-		return accu;
 	}
 
 	private boolean checkCars() {
-		for(Car c : model.getCars()){
-			if (car.checkCollide(c)){
-				return false;
+		boolean allClear = false;
+		while(!allClear){
+			allClear = true;
+			for(Car c : model.getCars()){
+				if (car.checkCollide(c)){
+					allClear = false;
+					timer.waitLess();
+					while (car.checkCollide(c)){
+						synchronized (c){
+							try {
+								c.wait();
+							} catch (InterruptedException e) 
+								{e.printStackTrace();}
+						}
+					}
+					timer.waitMore();
+				}
 			}
 		}
-		return false;
+		return true;
 	}
 
-	private boolean checkCrossing() {
-		// TODO Auto-generated method stub
-		return false;
+	private void claimCrossing() {
+		crossing.claim(car);
 	}
 
 }

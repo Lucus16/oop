@@ -21,6 +21,9 @@ public class Route66
      * - creates model, controller and views
      */
     public Route66() {
+    	//TODO: voor iedere Car car, maak een Driver(car,controller,model) aan.
+    	//TODO: Crossing moet een container voor Cars hebben.
+    	//TODO: check dat iedere wait() en notifyAll() vanuit een sync-block wordt geroepen.
         Model model = new Model();
         
         RoadView rview  = new RoadView(model);

@@ -10,44 +10,7 @@ import java.util.Random;
  */
 public class Controller
 {
-	/**
-	 * Used to provide something for the Controller to wait() on while waiting
-	 * for all drivers to attempt to take a step.
-	 * 
-	 * @author Sal Wolffs (s4064542)
-	 * @author Lars Jellema (s4388747)
-	 *
-	 */
-	private class WaitCounter{
-		private final int total;
-		private int wait;
-		
-		public WaitCounter(int amt){
-			if(amt <= 0){
-				throw new IllegalArgumentException(
-						"Cannot count non-positive amount of object to be"
-						+ " waited on.");
-			}
-			total = amt;
-			wait = 0;
-		}
-		
-		public void reset(){
-			wait = total;
-		}
-		
-		public synchronized void lower(){
-			wait -= 1;
-			if(wait < 0){
-				System.err.println("Waiting lowered below 0!");
-			}
-			if(wait <= 0){
-				notifyAll();
-			}
-		}
-	}
-	
-    private int delay = 200;                // average sleep time
+	private int delay = 200;                // average sleep time
     private final Model model;              // the model
     private final Random random;            // a random generator
     private boolean run = true;             // car can run in simulation
@@ -60,7 +23,7 @@ public class Controller
     public Controller(Model model) {
         this.model  = model;
         random      = new Random();
-        patience    = new WaitCounter(Model.NUMBEROFCARS);
+        patience    = new WaitCounter();
     }
 
     /**
@@ -96,6 +59,14 @@ public class Controller
             for (int c = 0; c < Model.NUMBEROFCARS; c += 1) {
                 model.getCar(c).step();
             }
+            /*
+            synchronized (patience){
+            	patience.set(runningCars); //TODO: implement int runningCars.
+            	synchronized (this) { notifyAll(); }
+            	patience.wait();
+            	}
+            }
+            */
         }
         model.update(); // update only after all cars have stepped
     }
@@ -127,5 +98,15 @@ public class Controller
 
 	public synchronized void checkIn() {
 		patience.lower();
+	}
+
+	public void waitLess() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void waitMore() {
+		// TODO Auto-generated method stub
+		// MEMO: Of er nu een cycle is geweest of niet, patience is 1 te laag.
 	}
 }
