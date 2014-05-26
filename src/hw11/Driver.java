@@ -20,19 +20,21 @@ public class Driver implements Runnable {
 	public void run() {
 		while (true){
 			synchronized (timer){
-			timer.checkIn();
-			try {
-				timer.wait();
-			} catch (InterruptedException e) {e.printStackTrace();}
-			}
-			// NOTE: Only safe if the only thing any other thread can do
-			// to make this less safe is taking the crossing.
+				timer.checkIn();
+				try {
+					timer.wait();
+				} catch (InterruptedException e) {e.printStackTrace();}
+			}//unlock timer
+			/* NOTE: The below is only safe if the only thing any other thread 
+			 * can do to make this less safe is taking the crossing.
+			 * Specifically, no car must back up.
+			 */
 			if(checkCars()){ 
 				if(Crossing.unsafe(car)){
 					synchronized(crossing){
-					claimCrossing();
+					claimCrossing(); //
 					car.step();
-					}
+					}//unlock crossing
 				}
 				else{
 					car.step();
@@ -40,7 +42,12 @@ public class Driver implements Runnable {
 			}
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @locks timer.patience, Car c : model.getCars, timer.patience
+	 * @return
+	 */
 	private boolean checkCars() {
 		boolean allClear = false;
 		while(!allClear){

@@ -29,6 +29,7 @@ public class Model extends Observable
         cars = new Car [NUMBEROFCARS];
         for (int c = 0; c < NUMBEROFCARS; c += 1) {
             cars[c] = new Car(c);
+            
         }
     }
     

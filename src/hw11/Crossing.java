@@ -26,8 +26,7 @@ public class Crossing {
 	}
 
 	public static boolean unsafe(Car car) {
-		// TODO Auto-generated method stub
-		return false;
+		return (car.getLocation() > entryloc && car.getLocation() - Car.CARLENGTH < leaveloc);
 	}
 
 	public void claim(Car car) {

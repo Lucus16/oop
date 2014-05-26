@@ -17,7 +17,7 @@ class WaitCounter{
 	
 	public void set(int amt){
 		if(amt <= 0){
-			throw new IllegalArgumentException(
+			System.err.println(
 					"Cannot count non-positive amount of objects to be "
 					+ " waited on.");
 		}
@@ -32,5 +32,9 @@ class WaitCounter{
 		if(wait <= 0){
 			notifyAll();
 		}
+	}
+	
+	public synchronized void increase(){
+		wait += 1;
 	}
 }
