@@ -21,7 +21,13 @@ public class Controller implements Runnable {
 	private WaitCounter patience;
 	private int temper;
 	private ExecutorService driverPool;
-
+	
+	private Crossing crossing;
+	/* crossing is logically part of the model, but needs to be controlled,
+	 * and the model does not know about the controller. Restructuring other
+	 * people's code to be sane is overkill for a < 1 week project.
+	 */
+	
 	/**
 	 * The constructor of the controller
 	 * 
@@ -32,11 +38,13 @@ public class Controller implements Runnable {
 		this.model = model;
 		random = new Random();
 		patience = new WaitCounter();
-		temper = model.NUMBEROFCARS;
+		temper = model.NUMBEROFCARS + 1; //cars and crossing
 		patience.set(temper);
+		crossing = new Crossing(model,this);
 		driverPool = new ThreadPoolExecutor
 				(model.NUMBEROFCARS,Integer.MAX_VALUE,5,TimeUnit.SECONDS,
 						new LinkedBlockingQueue());
+		
 	}
 
 	/**
@@ -44,10 +52,11 @@ public class Controller implements Runnable {
 	 */
 	public void run() {
 		for (Car c : model.getCars()){
-			driverPool.execute(new Driver(c,this,model));
+			driverPool.execute(new Driver(c,this,model,crossing));
 		}
 		while (true) {
 			stepAllCars();
+			
 			pause();
 		}
 	}

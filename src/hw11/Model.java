@@ -14,11 +14,11 @@ public class Model extends Observable
 {
 	private final Car [] cars;
 	public static final int
-       DIRECTIONS = 4,                  // for a crossing
-//       DIRECTIONS = 2,                // for a single road
-       NUMBEROFCARS = 5 * DIRECTIONS;   // total number of cars in system
-        
-        private final ArrayList<JFrame> views;
+		DIRECTIONS = 4,                  // for a crossing
+//		DIRECTIONS = 2,                  // for a single road
+		NUMBEROFCARS = 5 * DIRECTIONS;   // total number of cars in system
+		
+	private final ArrayList<JFrame> views;
 
 
     /**

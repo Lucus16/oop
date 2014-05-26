@@ -136,4 +136,8 @@ public class Car {
 			}
 		}}//release second, first.
 	}
+	
+	public Direction getDir(){
+		return direction;
+	}
 }

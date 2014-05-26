@@ -6,7 +6,8 @@ public class Driver implements Runnable {
 	private Model model;
 	private Crossing crossing;
 	
-	public Driver (Car car, Controller controller, Model model){
+	public Driver (Car car, Controller controller, 
+					Model model, Crossing crossing){
 		if (!car.drive()){
 			throw new IllegalArgumentException(
 					"Car " + car.toString() + " is already being driven!");
@@ -14,6 +15,7 @@ public class Driver implements Runnable {
 		this.car = car;
 		timer = controller;
 		this.model = model;
+		this.crossing = crossing;
 	}
 	
 	@Override
