@@ -56,7 +56,7 @@ public class Controller implements Runnable {
 		}
 		while (true) {
 			stepAllCars();
-			
+			crossing.step();
 			pause();
 		}
 	}
@@ -78,14 +78,15 @@ public class Controller implements Runnable {
 	 */
 	public void stepAllCars() {
 		if (run) {
-			for (int c = 0; c < Model.NUMBEROFCARS; c += 1) {
-				model.getCar(c).step();
+			synchronized (patience){
+			if(!patience.checkFree()){
+				try {
+					patience.wait();
+				} catch (InterruptedException e) { e.printStackTrace(); } 
 			}
-			/*
-			 * synchronized (patience){ //TODO: implement int runningCars.
-			 * patience.wait(); synchronized (this) { notifyAll(); }
-			 * patience.set(runningCars); } }
-			 */
+			synchronized (this) { notifyAll(); }
+			patience.set(temper);
+			}
 		}
 		model.update(); // update only after all cars have stepped
 	}

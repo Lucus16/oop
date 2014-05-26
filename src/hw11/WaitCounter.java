@@ -16,9 +16,9 @@ class WaitCounter{
 	}
 	
 	public void set(int amt){
-		if(amt <= 0){
+		if(amt < 0){
 			System.err.println(
-					"Cannot count non-positive amount of objects to be "
+					"Cannot count negative amount of objects to be "
 					+ " waited on.");
 		}
 		wait = amt;
@@ -36,5 +36,9 @@ class WaitCounter{
 	
 	public synchronized void increase(){
 		wait += 1;
+	}
+	
+	public synchronized boolean checkFree(){
+		return wait == 0;
 	}
 }

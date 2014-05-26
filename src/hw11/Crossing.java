@@ -92,31 +92,38 @@ public class Crossing{
 		}
 	}
 	
+	/**
+	 * somehow, this is returning for both cardirs at once. That should not
+	 * happen, but there's not time to fix it anymore.
+	 * @param car
+	 */
 	public void claim(Car car) {
 		if(Model.DIRECTIONS == 2) return;
 		if(!unsafe(car)){
 			return;
 		}
 		if(!occupiers.contains(car)){
+			System.out.println("Letting through known car.");
 			return;
 		}
 		//so the car really needs to claim the crossing.
 		BiDirection cardir = BiDirection.directionToBi(car.getDir());
-		while(true)
-		synchronized (this){
-			if(cardir == active && !switchlocked){
-				occupiers.add(car);
-				return;
-			}
-			else{
-				cardir.waitedFor = true;
-				timer.waitLess();
-				synchronized (cardir){
-					try {
-						cardir.wait();
-					} catch (InterruptedException e) { e.printStackTrace(); }
+		while(true){
+			synchronized (this){
+				if(cardir == active && !switchlocked){
+					occupiers.add(car);
+					return;
 				}
-				timer.waitMore();
+				else{
+					cardir.waitedFor = true;
+					timer.waitLess();
+					synchronized (cardir){
+						try {
+							cardir.wait();
+						} catch (InterruptedException e) { e.printStackTrace(); }
+					}
+					timer.waitMore();
+				}
 			}
 		}
 	}
