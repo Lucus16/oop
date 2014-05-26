@@ -38,11 +38,11 @@ public class Controller implements Runnable {
 		this.model = model;
 		random = new Random();
 		patience = new WaitCounter();
-		temper = model.NUMBEROFCARS + 1; //cars and crossing
+		temper = Model.NUMBEROFCARS;
 		patience.set(temper);
 		crossing = new Crossing(model,this);
 		driverPool = new ThreadPoolExecutor
-				(model.NUMBEROFCARS,Integer.MAX_VALUE,5,TimeUnit.SECONDS,
+				(Model.NUMBEROFCARS,Integer.MAX_VALUE,5,TimeUnit.SECONDS,
 						new LinkedBlockingQueue());
 		
 	}
