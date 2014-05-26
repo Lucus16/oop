@@ -7,9 +7,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * OO1route66 initial class
- * 
- * @author Pieter Koopman
+ * @author Lars Jellema (s4388747)
+ * @author Sal Wolffs (s4064542)
  * 
  *         The initial controller runs as a single thread
  */
@@ -66,7 +65,7 @@ public class Controller implements Runnable {
 	 */
 	private void pause() {
 		try { // sleep can throw an exception
-			Thread.sleep(delay / 2 + random.nextInt(delay));
+			Thread.sleep((delay / 2 + random.nextInt(delay))/1000);
 		} catch (InterruptedException e) { // catch the exception thrown by
 											// sleep
 			System.out.println("An exception in Controller: " + e);
@@ -81,12 +80,16 @@ public class Controller implements Runnable {
 			synchronized (patience){
 			if(!patience.checkFree()){
 				try {
+					System.out.println("Waiting on " + patience.getWait());
 					patience.wait();
+					System.out.println("Waited on " + patience.getWait());
 				} catch (InterruptedException e) { e.printStackTrace(); } 
 			}
-			synchronized (this) { notifyAll(); }
-			patience.set(temper);
-			}
+			synchronized (this) {
+				patience.set(temper); 
+				notifyAll(); 
+				}
+			}//sync this
 		}
 		model.update(); // update only after all cars have stepped
 	}

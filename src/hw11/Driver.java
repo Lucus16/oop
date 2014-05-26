@@ -1,11 +1,18 @@
 package hw11;
 
+/**
+ * @author Lars Jellema (s4388747)
+ * @author Sal Wolffs (s4064542)
+ */
 public class Driver implements Runnable {
 	private Car car;
 	private Controller timer;
 	private Model model;
 	private Crossing crossing;
 	
+	/**
+	 * 
+	 */
 	public Driver (Car car, Controller controller, 
 					Model model, Crossing crossing){
 		if (!car.drive()){
@@ -22,7 +29,9 @@ public class Driver implements Runnable {
 	public void run() {
 		while (true){
 			synchronized (timer){
+				System.out.println("checkIn < " + car.getNumber());
 				timer.checkIn();
+				System.out.println("checkIn > " + car.getNumber());
 				try {
 					timer.wait();
 				} catch (InterruptedException e) {e.printStackTrace();}
@@ -57,7 +66,9 @@ public class Driver implements Runnable {
 			for(Car c : model.getCars()){
 				if (car.checkCollide(c)){
 					allClear = false;
+					System.out.println("waitLess > " + car.getNumber());
 					timer.waitLess();
+					System.out.println("waitLess < " + car.getNumber());
 					while (car.checkCollide(c)){
 						synchronized (c){
 							try {
@@ -66,7 +77,10 @@ public class Driver implements Runnable {
 								{e.printStackTrace();}
 						}
 					}
+					System.out.println("waitMore > " + car.getNumber());
 					timer.waitMore();
+					System.out.println("waitMore < " + car.getNumber());
+					
 				}
 			}
 		}

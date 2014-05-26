@@ -32,7 +32,7 @@ public class Crossing{
 			- Car.CARWIDTH - 4;
 	public static final int width = 2 * Car.CARWIDTH + 8;
 	public static final int leaveloc = entryloc + width;
-	private static int BASETIMEOUT = 20;
+	private static int BASETIMEOUT = 40;
 	private Model model;
 	private Controller timer;
 	private BiDirection active,inactive;
@@ -60,13 +60,16 @@ public class Crossing{
 			inactive = tmp;
 			timeout = BASETIMEOUT;
 			switchlocked = false;
+			notifyAll();
 		}
 	}
 
 	private synchronized void cleanOccupiers() {
 		ArrayList<Car> toRemove = new ArrayList<Car>();
 		for(Car c : occupiers){
-			toRemove.add(c);
+			if(c.getLocation() + Car.MINCARSPACE < entryloc || c.getLocation() - Car.CARLENGTH -Car.MINCARSPACE > leaveloc){
+				toRemove.add(c);
+			}
 		}
 		for(Car c : toRemove){
 			occupiers.remove(c);
@@ -76,7 +79,7 @@ public class Crossing{
 	
 
 	public static boolean unsafe(Car car) {
-		return (car.getLocation() > entryloc && car.getLocation() - Car.CARLENGTH < leaveloc);
+		return (car.getLocation() + Car.MINCARSPACE > entryloc && car.getLocation() - Car.CARLENGTH -Car.MINCARSPACE < leaveloc);
 	}
 	
 	public void step(){
@@ -102,27 +105,34 @@ public class Crossing{
 		if(!unsafe(car)){
 			return;
 		}
-		if(!occupiers.contains(car)){
-			System.out.println("Letting through known car.");
+		if(occupiers.contains(car)){
 			return;
 		}
 		//so the car really needs to claim the crossing.
 		BiDirection cardir = BiDirection.directionToBi(car.getDir());
 		while(true){
+			System.out.println("attempting to get lock on crossing");
 			synchronized (this){
+				System.out.println("locked crossing");
 				if(cardir == active && !switchlocked){
 					occupiers.add(car);
+					System.out.println("1: unlocked crossing");
 					return;
 				}
 				else{
 					cardir.waitedFor = true;
+					System.out.println("locking timer");
+					System.out.println("waitLess > " + car.getNumber());
 					timer.waitLess();
-					synchronized (cardir){
-						try {
-							cardir.wait();
-						} catch (InterruptedException e) { e.printStackTrace(); }
-					}
+					System.out.println("waitLess < " + car.getNumber());
+					System.out.println("unlocking timer");
+					try {
+						System.out.println("2: unlocked crossing");
+						wait();
+					} catch (InterruptedException e) { e.printStackTrace(); }
+					System.out.println("waitMore > " + car.getNumber());
 					timer.waitMore();
+					System.out.println("waitMore < " + car.getNumber());
 				}
 			}
 		}

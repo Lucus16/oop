@@ -6,7 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * OO13route66 animation
+ * @author Lars Jellema (s4388747)
+ * @author Sal Wolffs (s4064542)
+ * 
  * @author Pieter Koopman
  *
  * Yields a graphical view on all cars

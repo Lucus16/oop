@@ -5,9 +5,9 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /**
- * OO1route66 initial class
- * @author Pieter Koopman
- *
+ * @author Lars Jellema (s4388747)
+ * @author Sal Wolffs (s4064542)
+ * 
  * The class model holds all cars in the simulation
  */
 public class Model extends Observable

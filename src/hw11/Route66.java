@@ -1,7 +1,9 @@
 package hw11;
 
 /**
- * OO1route66 initial class
+ * @author Lars Jellema (s4388747)
+ * @author Sal Wolffs (s4064542)
+ * 
  * @author Pieter Koopman
  * Route66 class constructs model, view and controller
  */

@@ -25,7 +25,8 @@ class WaitCounter{
 	}
 	
 	public synchronized void lower(){
-		wait -= 1;
+		wait -= 1; 
+		System.out.println("lowered wait to " + wait);
 		if(wait < 0){
 			System.err.println("Waiting lowered below 0!");
 		}
@@ -36,9 +37,14 @@ class WaitCounter{
 	
 	public synchronized void increase(){
 		wait += 1;
+		System.out.println("increased wait to " + wait);
 	}
 	
 	public synchronized boolean checkFree(){
 		return wait == 0;
+	}
+	
+	public synchronized int getWait(){
+		return wait;
 	}
 }

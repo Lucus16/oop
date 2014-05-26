@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.util.Random;
 
 /**
+ * @author Lars Jellema (s4388747)
+ * @author Sal Wolffs (s4064542)
+ * 
  * OO1route66 initial class
  * 
  * @author Pieter Koopman
@@ -139,5 +142,9 @@ public class Car {
 	
 	public Direction getDir(){
 		return direction;
+	}
+	
+	public int getNumber(){
+		return number;
 	}
 }
