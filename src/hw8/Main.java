@@ -1,6 +1,7 @@
 package hw8;
 
 import hw8.painters.Bouncer;
+import hw8.painters.RandomWalker;
 
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -85,7 +86,7 @@ public class Main implements ViewChangeListener {
 		Insets insets = mainFrame.getInsets();
 		mandelView = new MandelView(WIDTH - insets.left -
 				insets.right, HEIGHT - insets.top - insets.bottom,
-				new Bouncer());
+				new RandomWalker());
 		
 		JPanel controls = new JPanel();
 		
