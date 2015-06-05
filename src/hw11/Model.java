@@ -5,20 +5,20 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 /**
- * OO1route66 initial class
- * @author Pieter Koopman
- *
+ * @author Lars Jellema (s4388747)
+ * @author Sal Wolffs (s4064542)
+ * 
  * The class model holds all cars in the simulation
  */
 public class Model extends Observable
 {
 	private final Car [] cars;
 	public static final int
-       DIRECTIONS = 4,                  // for a crossing
-//       DIRECTIONS = 2,                // for a single road
-       NUMBEROFCARS = 5 * DIRECTIONS;   // total number of cars in system
-        
-        private final ArrayList<JFrame> views;
+		DIRECTIONS = 4,                  // for a crossing
+//		DIRECTIONS = 2,                  // for a single road
+		NUMBEROFCARS = 5 * DIRECTIONS;   // total number of cars in system
+		
+	private final ArrayList<JFrame> views;
 
 
     /**
@@ -29,6 +29,7 @@ public class Model extends Observable
         cars = new Car [NUMBEROFCARS];
         for (int c = 0; c < NUMBEROFCARS; c += 1) {
             cars[c] = new Car(c);
+            
         }
     }
     

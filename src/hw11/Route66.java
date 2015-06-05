@@ -1,7 +1,9 @@
 package hw11;
 
 /**
- * OO1route66 initial class
+ * @author Lars Jellema (s4388747)
+ * @author Sal Wolffs (s4064542)
+ * 
  * @author Pieter Koopman
  * Route66 class constructs model, view and controller
  */
@@ -21,14 +23,17 @@ public class Route66
      * - creates model, controller and views
      */
     public Route66() {
+    	//TODO: Crossing moet een container voor Cars hebben.
+    	//TODO: check dat iedere wait() en notifyAll() vanuit een sync-block wordt geroepen.
         Model model = new Model();
+        controller = new Controller(model);
         
         RoadView rview  = new RoadView(model);
         TableView tview = new TableView(model);
         model.addView(tview);
         model.addView(rview);
         
-        controller = new Controller(model);
+
         
         KeyHandler keyHandler = new KeyHandler(controller);
         rview.addKeyListener(keyHandler);
