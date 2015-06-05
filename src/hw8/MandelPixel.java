@@ -13,6 +13,7 @@ public class MandelPixel {
 	private double currentX, currentY;
 	private int mandelNumber;
 	private int currentViewVersion;
+	private boolean done;
 	
 	/**
 	 * Create a pixel for coordinates screenX, screenY, with pixel manager pm
@@ -35,6 +36,7 @@ public class MandelPixel {
 		originalY = currentY = pm.getYcoord(screenY);
 		mandelNumber = 0;
 		currentViewVersion = pm.getViewVersion();
+		done = false;
 	}
 	
 	/**
@@ -46,7 +48,9 @@ public class MandelPixel {
 		if (currentViewVersion != pm.getViewVersion()) {
 			reset();
 		}
+		if (done) { return -2; }
 		if (currentX * currentX + currentY * currentY > 4) {
+			done = true;
 			return mandelNumber;
 		}
 		double newX = currentX * currentX - currentY * currentY + originalX;
