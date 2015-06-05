@@ -37,10 +37,10 @@ public class MandelWorker extends Thread {
 				}
 			}
 			mv.redraw();
-			try {
-				sleep(50);
-			} catch (InterruptedException e) {
-			}
+//			try {
+//				sleep(50);
+//			} catch (InterruptedException e) {
+//			}
 		}
 	}
 }
