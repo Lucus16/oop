@@ -2,6 +2,7 @@ package hw7.server.engine;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -14,11 +15,12 @@ import utils.Range;
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747
  */
-public class Engine {
+public class Engine implements Serializable {
+	private static final long serialVersionUID = 8511777500939554446L;
 	private HashMap<String, User> users;
 	private static final char[] passChars = 
-			("abcdefghijklmnopqrstuvwxyz"+
-					"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").toCharArray();
+			("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+			"0123456789").toCharArray();
 	private static final int passLength = 8;
 	
 	public Engine() {
@@ -43,6 +45,9 @@ public class Engine {
 	}
 	
 	public String addUser(String username, String email) {
+		if (users.containsKey(username)) {
+			return null;
+		}
 		SecureRandom gen = new SecureRandom();
 		char[] password = new char[passLength];
 		for (int i : new Range(passLength)) {
