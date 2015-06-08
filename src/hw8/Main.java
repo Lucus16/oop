@@ -1,5 +1,8 @@
 package hw8;
 
+import hw8.painters.Bouncer;
+import hw8.painters.RandomWalker;
+
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +20,12 @@ import javax.swing.JPanel;
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747
  */
-public class Main implements RedrawListener {
+public class Main implements ViewChangeListener {
 	/**
 	 * Handler for the apply button
 	 */
 	public class GoButtonHandler implements ActionListener {
-		private JFormattedTextField xSource, ySource, scaleSource, depthSource;
+		private JFormattedTextField xSource, ySource, scaleSource;
 		private MandelView model;
 		
 		/**
@@ -31,19 +34,16 @@ public class Main implements RedrawListener {
 		 * @param xSource
 		 * @param ySource
 		 * @param scaleSource
-		 * @param depthSource
 		 * @param model
 		 */
 		public GoButtonHandler(
 				JFormattedTextField xSource,
 				JFormattedTextField ySource,
 				JFormattedTextField scaleSource,
-				JFormattedTextField depthSource,
 				MandelView model) {
 			this.xSource = xSource;
 			this.ySource = ySource;
 			this.scaleSource = scaleSource;
-			this.depthSource = depthSource;
 			this.model = model;
 		}
 		
@@ -57,9 +57,6 @@ public class Main implements RedrawListener {
 				xSource.commitEdit();
 				ySource.commitEdit();
 				scaleSource.commitEdit();
-				depthSource.commitEdit();
-				
-				model.setLimit(parser.parse(depthSource.getText()).intValue());
 				
 				model.setView(parser.parse(xSource.getText()).doubleValue(),
 					parser.parse(ySource.getText()).doubleValue(),
@@ -76,7 +73,7 @@ public class Main implements RedrawListener {
 	
 	private MandelView mandelView;
 	
-	JFormattedTextField xField,yField,scaleField,calcDepthField;
+	JFormattedTextField xField, yField, scaleField, calcDepthField;
 	
 	/**
 	 * Initialize the main class by creating the window, the view and
@@ -88,7 +85,8 @@ public class Main implements RedrawListener {
 			
 		Insets insets = mainFrame.getInsets();
 		mandelView = new MandelView(WIDTH - insets.left -
-				insets.right, HEIGHT - insets.top - insets.bottom);
+				insets.right, HEIGHT - insets.top - insets.bottom,
+				new RandomWalker());
 		
 		JPanel controls = new JPanel();
 		
@@ -107,15 +105,10 @@ public class Main implements RedrawListener {
 		scaleField.setColumns(10);
 		controls.add(scaleField);
 		
-		controls.add(new JLabel("depth:"));
-		calcDepthField = new JFormattedTextField(NumberFormat.getIntegerInstance());
-		calcDepthField.setColumns(6);
-		controls.add(calcDepthField);
-		
 		JButton recalcButton = new JButton("Apply");
 		recalcButton.addActionListener(
 				new GoButtonHandler(xField, yField,
-						scaleField, calcDepthField, mandelView));
+						scaleField, mandelView));
 		controls.add(recalcButton);
 		
 		JButton resetButton = new JButton("Reset");
@@ -148,15 +141,14 @@ public class Main implements RedrawListener {
 	 * Start the mandelbrot viewer by creating a main
 	 * @param args
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		new Main();
 	}
 
 	@Override
-	public void redrawn(double x, double y, double scale, int depth) {
+	public void viewChanged(double x, double y, double scale) {
 		xField.setValue(x);
 		yField.setValue(y);
 		scaleField.setValue(scale);
-		calcDepthField.setValue(depth);
 	}
 }

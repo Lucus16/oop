@@ -1,12 +1,13 @@
 package hw8;
 
 /**
- * A redraw listener is used by mandel view to indicate it has redrawn
+ * A view change listener is used by mandel view to indicate its
+ * view has changed.
  * Other things can use this to update at the same time
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747
  */
-public interface RedrawListener {
+public interface ViewChangeListener {
 	/**
 	 * Called when the mandel view is redrawn.
 	 * @param x
@@ -14,5 +15,5 @@ public interface RedrawListener {
 	 * @param scale
 	 * @param depth
 	 */
-	void redrawn(double x, double y, double scale, int depth);
+	void viewChanged(double x, double y, double scale);
 }

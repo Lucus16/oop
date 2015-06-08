@@ -1,5 +1,7 @@
 package hw8;
 
+import hw8.painters.ColorTable;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -10,13 +12,16 @@ import java.awt.Rectangle;
  * @author Sal Wolffs s4064542
  * @author Lars Jellema s4388747
  */
-public class MandelView extends GridView {
+public class MandelView extends GridView implements PixelManager {
 	private static final long serialVersionUID = -6339535732137830801L;
-	private int limit;
+	private static final int NUM_WORKERS = 8;
 	private Painter painter;
 	private double minX, minY, maxX, maxY, scale;
 	private Rectangle zoomRect;
-	private RedrawListener redrawListener;
+	private ViewChangeListener viewChangeListener;
+	private int viewVersion;
+	private MandelPixel[][] pixels;
+	private MandelWorker[] workers;
 	
 	/**
 	 * Initialize the mandelview
@@ -28,8 +33,20 @@ public class MandelView extends GridView {
 		super(width, height);
 		this.painter = painter;
 		setZoomRect(null);
-		setLimit(256);
+		viewVersion = 0;
 		resetView();
+		pixels = new MandelPixel[width][height];
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				pixels[x][y] = new MandelPixel(x, y, this);
+			}
+		}
+		workers = new MandelWorker[NUM_WORKERS];
+		for (int i = 0; i < workers.length; i++) {
+			workers[i] = new MandelWorker(this.getHeight() * i / NUM_WORKERS,
+					this.getHeight() * (i + 1) / NUM_WORKERS, this);
+			workers[i].start();
+		}
 	}
 	
 	/**
@@ -52,30 +69,16 @@ public class MandelView extends GridView {
 	 * Add a listener to update other stuff when the screen is redrawn
 	 * @param redrawListener
 	 */
-	public void addRedrawListener(RedrawListener redrawListener) {
-		this.redrawListener = redrawListener;
+	public void addRedrawListener(ViewChangeListener redrawListener) {
+		this.viewChangeListener = redrawListener;
 	}
 	
 	/**
-	 * Redraw the screen pixel by pixel
+	 * Redraw the screen
 	 */
 	public void redraw() {
-		if (redrawListener != null) {
-			redrawListener.redrawn((minX + maxX) / 2, (minY + maxY) / 2, scale, limit);
-		}
-		for (int x = 0; x < getWidth(); x++) {
-			for (int y = 0; y < getHeight(); y++) {
-				int mandelNum = Mandelbrot.mandelnumber(getXcoord(x),
-						getYcoord(y), limit);
-				if (mandelNum == -1) {
-					setPixel(x, y, Painter.BLACK);
-				} else {
-					setPixel(x, y, painter.getColor(mandelNum));
-				}
-			}
-		}
-		drawZoomRect();
 		repaint();
+		drawZoomRect();
 	}
 	
 	/**
@@ -130,8 +133,17 @@ public class MandelView extends GridView {
 	 * @param x
 	 * @return
 	 */
-	public double getXcoord(double x) {
-		return minX + (maxX - minX) / getWidth() * x;
+	public double getXcoord(double screenX) {
+		return minX + (maxX - minX) / getWidth() * screenX;
+	}
+
+	/**
+	 * Get a mandelbrot X coordinate from a screen X coordinate
+	 * @param x
+	 * @return
+	 */
+	public double getXcoord(int screenX) {
+		return getXcoord((double)screenX);
 	}
 
 	/**
@@ -139,8 +151,17 @@ public class MandelView extends GridView {
 	 * @param y
 	 * @return
 	 */
-	public double getYcoord(double y) {
-		return minY + (maxY - minY) / getHeight() * y;
+	public double getYcoord(double screenY) {
+		return minY + (maxY - minY) / getHeight() * screenY;
+	}
+
+	/**
+	 * Get a mandelbrot Y coordinate from a screen Y coordinate
+	 * @param y
+	 * @return
+	 */
+	public double getYcoord(int screenY) {
+		return getYcoord((double)screenY);
 	}
 	
 	/**
@@ -150,28 +171,17 @@ public class MandelView extends GridView {
 	 * @param scale
 	 */
 	public void setView(double centerX, double centerY, double scale) {
+		if (viewChangeListener != null) {
+			viewChangeListener.viewChanged((minX + maxX) / 2, (minY + maxY) / 2, scale);
+		}
 		this.scale = scale;
 		minX = centerX - getWidth() / 2 / scale;
 		minY = centerY - getHeight() / 2 / scale;
 		maxX = centerX + getWidth() / 2 / scale;
 		maxY = centerY + getHeight() / 2 / scale;
+		viewVersion += 1;
+		clear();
 		redraw();
-	}
-
-	/**
-	 * Get the number of steps the mandelbrot calculation will go at most
-	 * @return
-	 */
-	public int getLimit() {
-		return limit;
-	}
-
-	/**
-	 * Set the number of steps the mandelbrot calculation will go at most
-	 * @param limit
-	 */
-	public void setLimit(int limit) {
-		this.limit = limit;
 	}
 
 	/**
@@ -180,5 +190,18 @@ public class MandelView extends GridView {
 	 */
 	public double getScale() {
 		return scale;
+	}
+
+	@Override
+	public int getViewVersion() {
+		return viewVersion;
+	}
+	
+	/**
+	 * Get the mandel pixels
+	 * @return
+	 */
+	public MandelPixel[][] getPixels() {
+		return pixels;
 	}
 }
